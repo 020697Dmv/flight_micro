@@ -75,5 +75,12 @@ public class Aeropuerto {
 		this.direccion = direccion;
 	}
 
+	@Override
+	public String toString() {
+		return "Aeropuerto [idAeropuerto=" + idAeropuerto + ", nombre=" + nombre + ", ciudad=" + ciudad + ", direccion="
+				+ direccion + "]";
+	}
+
+	
 	
 }
