@@ -1,15 +1,11 @@
 package net.code.java;
 
-import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Component;
 
-@SpringBootTest
-class Pruebas {
+import com.crud.vuelo.entity.Cliente;
 
-	@Test
-	void test() {
-	}
-
+@Component
+public interface Pruebas extends JpaRepository<Cliente,Integer> {
 }

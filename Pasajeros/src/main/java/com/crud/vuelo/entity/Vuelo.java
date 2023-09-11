@@ -19,6 +19,7 @@ import javax.persistence.Table;
 @Table(name = "Vuelo")
 public class Vuelo {
 	
+	
 	/**
 	* Variable idVuelo la cual es el identificador de la tabla Vuelo	 
 	*/

@@ -34,7 +34,7 @@ import io.swagger.annotations.ApiResponses;
  *
  */
 @RestController
-public class Controller {
+public class ClienteController {
 	
 	/**
 	 * Objetos con los metodos de obtener, listar, eliminar y editar
@@ -42,38 +42,24 @@ public class Controller {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
-
 	@Autowired
-	private VueloService vueloService;
+	private ClienteService clienteService;
 	
-	@Autowired
-	private VueloRepository vueloRepository;
-
-	/**
-	 * Metodo que lista todos los Vuelos 
-	 * @return se retorna un json con todos los Vuelos
-	 */
-	// http://localhost:8080/vuelo (GET)
-	@ApiOperation(value="getVuelos")
-	@ApiResponses({
-		@ApiResponse(code=200, message="Exitoso", response = Vuelo.class)
-	})
-	@RequestMapping(value = "/vuelo", method = RequestMethod.GET, produces = "application/json")
-	public List<Vuelo> getVuelos() {
-
-		return this.vueloService.findAllVuelo();
-	}
 	
 		/**
 		 * Metodo que lista todos los Clientes 
 		 * @return se retorna un json con todos los Clientes
 		 */
 		// http://localhost:8080/vuelo (GET)
+	@ApiOperation(value="getCliente")
+	@ApiResponses({
+		@ApiResponse(code=200, message="Exitoso Cliente", response = Vuelo.class)
+	})
 	@RequestMapping(value="/cliente",method=RequestMethod.GET, produces= "application/json")
 	public List<Cliente> getClientes(){
 		
 		
-		return clienteRepository.findAll();
+		return this.clienteService.findAllCliente();
 	}
 	
 	/**
