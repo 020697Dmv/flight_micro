@@ -21,7 +21,7 @@ public class Cliente {
 	* Variable id la cual es el identificador de la tabla Cliente	 
 	*/
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	//@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
 	/**

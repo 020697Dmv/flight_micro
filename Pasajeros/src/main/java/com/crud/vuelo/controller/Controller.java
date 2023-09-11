@@ -20,6 +20,12 @@ import com.crud.vuelo.entity.Cliente;
 import com.crud.vuelo.entity.Vuelo;
 import com.crud.vuelo.repository.ClienteRepository;
 import com.crud.vuelo.repository.VueloRepository;
+import com.crud.vuelo.service.ClienteService;
+import com.crud.vuelo.service.VueloService;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 /**
  * Clase Controlador
@@ -36,6 +42,10 @@ public class Controller {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
+
+	@Autowired
+	private VueloService vueloService;
+	
 	@Autowired
 	private VueloRepository vueloRepository;
 
@@ -44,12 +54,15 @@ public class Controller {
 	 * @return se retorna un json con todos los Vuelos
 	 */
 	// http://localhost:8080/vuelo (GET)
-		@RequestMapping(value="/vuelo",method=RequestMethod.GET, produces= "application/json")
-		public List<Vuelo> getVuelos(){
-			
-			
-			return vueloRepository.findAll();
-		}
+	@ApiOperation(value="getVuelos")
+	@ApiResponses({
+		@ApiResponse(code=200, message="Exitoso", response = Vuelo.class)
+	})
+	@RequestMapping(value = "/vuelo", method = RequestMethod.GET, produces = "application/json")
+	public List<Vuelo> getVuelos() {
+
+		return this.vueloService.findAllVuelo();
+	}
 	
 		/**
 		 * Metodo que lista todos los Clientes 
