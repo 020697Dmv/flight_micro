@@ -3,7 +3,11 @@ package com.crud.vuelo.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.crud.vuelo.entity.Cliente;
@@ -12,42 +16,86 @@ import com.crud.vuelo.repository.VueloRepository;
 import com.crud.vuelo.service.ClienteService;
 
 @Service
-public class ClienteServiceImpl implements ClienteService{
-	
-	
+public class ClienteServiceImpl implements ClienteService {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(ClienteServiceImpl.class);
+
 	@Autowired
 	private ClienteRepository clienteRepository;
-	
+
 	@Override
 	public List<Cliente> findAllCliente() {
-		// TODO Auto-generated method stub
-		
-		List<Cliente> clientes=clienteRepository.findAll();
+
+		List<Cliente> clientes = clienteRepository.findAll();
 		return clientes;
 	}
 
 	@Override
-	public Optional<Cliente> findCliente(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResponseEntity<Cliente> findCliente(int id) {
+
+		int idCliente = id;
+
+		Optional<Cliente> optionalCliente = clienteRepository.findById(idCliente);
+		if (optionalCliente.isPresent()) {
+
+			return new ResponseEntity<Cliente>(optionalCliente.get(), HttpStatus.OK);
+
+		} else {
+			LOGGER.info("NO HAY INFORMACION DE UN CLIENTE CON ESTE ID: " + id);
+			return ResponseEntity.noContent().build();
+
+		}
 	}
 
 	@Override
-	public boolean saveCliente(Cliente clienteNuevo) {
-		// TODO Auto-generated method stub
-		return false;
+	public ResponseEntity saveCliente(Cliente clienteNuevo) {
+		List<Cliente> clientes = clienteRepository.findAll();
+
+		for (Cliente cliente2 : clientes) {
+
+			if (cliente2.getId() == clienteNuevo.getId()) {
+
+				return new ResponseEntity<>("\"mensaje\" : \"El Cliente con identificaciï¿½n  " + clienteNuevo.getId()
+						+ " ya tiene una id igual a la ingresada\"", HttpStatus.BAD_REQUEST);
+
+			}
+
+		}
+
+		clienteRepository.save(clienteNuevo);
+
+		return new ResponseEntity<>("Cliente creado", HttpStatus.CREATED);
+
 	}
 
 	@Override
-	public boolean deleteCliente(int id) {
-		// TODO Auto-generated method stub
-		return false;
+	public ResponseEntity<Object> deleteCliente(int id) {
+		if (!clienteRepository.findById(id).isPresent()) {
+			return ResponseEntity.notFound().build();
+
+		}
+
+		clienteRepository.deleteById(id);
+
+		return ResponseEntity.ok().build();
 	}
 
 	@Override
-	public boolean updateCliente(Cliente ClienteNew) {
-		// TODO Auto-generated method stub
-		return false;
+	public ResponseEntity<?> updateCliente(Cliente ClienteNew, int id) {
+		Optional<Cliente> cliente = clienteRepository.findById(id);
+
+		if (!cliente.isPresent()) {
+			System.out.println("editar");
+			return ResponseEntity.notFound().build();
+		}
+
+		cliente.get().setEmail(ClienteNew.getEmail());
+		cliente.get().setNombre(ClienteNew.getNombre());
+		cliente.get().setTelefono(ClienteNew.getTelefono());
+
+		clienteRepository.save(cliente.get());
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(clienteRepository.save(cliente.get()));
 	}
 
 }

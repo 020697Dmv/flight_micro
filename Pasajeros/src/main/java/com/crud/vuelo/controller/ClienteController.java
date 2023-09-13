@@ -35,144 +35,89 @@ import io.swagger.annotations.ApiResponses;
  */
 @RestController
 public class ClienteController {
-	
+
 	/**
 	 * Objetos con los metodos de obtener, listar, eliminar y editar
-	*/
+	 */
 	@Autowired
 	private ClienteRepository clienteRepository;
-	
+
 	@Autowired
 	private ClienteService clienteService;
-	
-	
-		/**
-		 * Metodo que lista todos los Clientes 
-		 * @return se retorna un json con todos los Clientes
-		 */
-		// http://localhost:8080/vuelo (GET)
-	@ApiOperation(value="getCliente")
-	@ApiResponses({
-		@ApiResponse(code=200, message="Exitoso Cliente", response = Vuelo.class)
-	})
-	@RequestMapping(value="/cliente",method=RequestMethod.GET, produces= "application/json")
-	public List<Cliente> getClientes(){
-		
-		
+
+	/**
+	 * Metodo que lista todos los Clientes
+	 * 
+	 * @return se retorna un json con todos los Clientes
+	 */
+	// http://localhost:8080/vuelo (GET)
+	@ApiOperation(value = "getCliente", notes = "Servicio para leer los clientes")
+	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class) })
+	@RequestMapping(value = "/clientes", method = RequestMethod.GET, produces = "application/json")
+	public List<Cliente> getClientes() {
+
 		return this.clienteService.findAllCliente();
 	}
-	
+
 	/**
 	 * Metodo que extrae unicamente el Json que se le envia por Id
 	 * 
 	 * @param id codigo con el que se extrae la informacion
-	 * @return se retorna un json con el Cliente que corresponde a este id que se dio por parametro
+	 * @return se retorna un json con el Cliente que corresponde a este id que se
+	 *         dio por parametro
 	 */
 	// http://localhost:8080/cliente/1 (GET)
-	@RequestMapping(value="cliente/{id}", method=RequestMethod.GET, produces= "application/json")
-	public ResponseEntity<Cliente> getClienteId(@PathVariable("id") Integer id){
+	@RequestMapping(value = "clienteId/{id}", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<Cliente> getClienteId(@PathVariable("id") Integer id) {
 
-		int dd = id;
-		
-		Optional <Cliente> optionalCliente= clienteRepository.findById(dd);
-		if(optionalCliente.isPresent()) {
-			
-			return ResponseEntity.ok(optionalCliente.get());
+		return this.clienteService.findCliente(id);
 
-		}else {
-			
-			return ResponseEntity.noContent().build();
-
-		}
-		
 	}
-	
+
 	/**
-	 * Metodo para adicionar un Cliente nuevo, en el cual se listan todos los Clientes
-	 * y se valida que el Cliente que solicita este prestamo no este registrado en la B. Ddatos
+	 * Metodo para adicionar un Cliente nuevo, en el cual se listan todos los
+	 * Clientes y se valida que el Cliente que solicita este prestamo no este
+	 * registrado en la B. Ddatos
+	 * 
 	 * @param Cliente para ser añadido en la Lista
-	 * @return se retorna un json con un mensaje donde se valida si  el Cliente fue añadido o por el contrario no se pudo crear
+	 * @return se retorna un json con un mensaje donde se valida si el Cliente fue
+	 *         añadido o por el contrario no se pudo crear
 	 */
 	// http://localhost:8080/guardar (POST)
-	@PostMapping("/guardar")
-	public ResponseEntity guardar (@RequestBody Cliente cliente) {
-		
+	@PostMapping("/crearCliente")
+	public ResponseEntity guardar(@RequestBody Cliente cliente) {
 
+		return this.clienteService.saveCliente(cliente);
 
-		List<Cliente> clientes=clienteRepository.findAll();
-		
-		
-		
-
-		for (Cliente cliente2 : clientes) {
-			
-			if(cliente2.getId()==cliente.getId()) {
-				
-				return new ResponseEntity<>("\"mensaje\" : \"El Cliente con identificaciï¿½n  "+ cliente.getId()
-				+ " ya tiene una id igual a la ingresada\"", HttpStatus.BAD_REQUEST);
-				
-			}
-
-			}
-		
-		clienteRepository.save(cliente);
-
-		return new ResponseEntity<>("Cliente creado", HttpStatus.CREATED);
-
-		
-		
-		
-			
-		
 	}
-	
+
 	/**
-	 * Metodo para editar a un Cliente ya creado, en el cual se listan todos los Clientes
-	 * y se valida que el Cliente que solicita este prestamo ya este registrado en la B. Ddatos
-	 * @param Cliente para ser editado 
-	 * @return se retorna un json con un mensaje donde se valida si  el Cliente fue editado o por el contrario no se pudo editar
+	 * Metodo para editar a un Cliente ya creado, en el cual se listan todos los
+	 * Clientes y se valida que el Cliente que solicita este prestamo ya este
+	 * registrado en la B. Ddatos
+	 * 
+	 * @param Cliente para ser editado
+	 * @return se retorna un json con un mensaje donde se valida si el Cliente fue
+	 *         editado o por el contrario no se pudo editar
 	 */
 	// http://localhost:8080/1 (PUT)
 	@PutMapping("/{id}")
-	public ResponseEntity<?> update(@RequestBody Cliente clientedetalle, @PathVariable(value="id") Integer id){
-		
-		Optional<Cliente> cliente= clienteRepository.findById(id);
-		
-		
-		if(!cliente.isPresent()) {
-			System.out.println("editar");
-			return ResponseEntity.notFound().build();
-		}
-		
-		cliente.get().setEmail(clientedetalle.getEmail());
-		cliente.get().setNombre(clientedetalle.getNombre());
-		cliente.get().setTelefono(clientedetalle.getTelefono());
-		
-		clienteRepository.save(cliente.get());
-		
-		return ResponseEntity.status(HttpStatus.CREATED).body(clienteRepository.save(cliente.get()));		
+	public ResponseEntity<?> update(@RequestBody Cliente clientedetalle, @PathVariable(value = "id") Integer id) {
+
+		return this.clienteService.updateCliente(clientedetalle, id);
+
 	}
-	
+
 	/**
 	 * Metodo para eliminar un Cliente por el id
 	 * 
 	 * @param id es el Cliente- registro que deseamos eliminar
 	 */
-	// http://localhost:8080/employees/eliminar/1 (DELETE)		
-	@DeleteMapping("/eliminar/{id}")
+	@DeleteMapping("/eliminarCliente/{id}")
 	public ResponseEntity<?> delete(@PathVariable(value = "id") Integer id) {
 
-		
-		if(!clienteRepository.findById(id).isPresent()) {
-			return ResponseEntity.notFound().build();
-			
-		}
-		
-		clienteRepository.deleteById(id);
-		
-		return ResponseEntity.ok().build();
+		return this.clienteService.deleteCliente(id);
 
-		
 	}
-	
+
 }

@@ -52,7 +52,7 @@ public class VueloController {
 	// http://localhost:8080/vuelo (GET)
 	@ApiOperation(value="getVuelos")
 	@ApiResponses({
-		@ApiResponse(code=200, message="Exitoso Vuelos", response = Vuelo.class)
+		@ApiResponse(code=200, message="Exitoso", response = Vuelo.class)
 	})
 	@RequestMapping(value = "/vuelo", method = RequestMethod.GET, produces = "application/json")
 	public List<Vuelo> getVuelos() {
