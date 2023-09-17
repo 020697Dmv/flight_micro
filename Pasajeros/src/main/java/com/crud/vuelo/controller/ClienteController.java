@@ -51,7 +51,7 @@ public class ClienteController {
 	 * @return se retorna un json con todos los Clientes
 	 */
 	// http://localhost:8080/vuelo (GET)
-	@ApiOperation(value = "getCliente", notes = "Servicio para leer los clientes")
+	@ApiOperation(value = "getCliente", notes = "Servicio para obtener todod los clientes")
 	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class) })
 	@RequestMapping(value = "/clientes", method = RequestMethod.GET, produces = "application/json")
 	public List<Cliente> getClientes() {
@@ -67,6 +67,8 @@ public class ClienteController {
 	 *         dio por parametro
 	 */
 	// http://localhost:8080/cliente/1 (GET)
+	@ApiOperation(value = "getClienteId", notes = "Servicio para leer los clientes por ID")
+	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class) })
 	@RequestMapping(value = "clienteId/{id}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<Cliente> getClienteId(@PathVariable("id") Integer id) {
 
@@ -84,8 +86,10 @@ public class ClienteController {
 	 *         añadido o por el contrario no se pudo crear
 	 */
 	// http://localhost:8080/guardar (POST)
+	@ApiOperation(value = "crearCliente", notes = "Servicio para crear un nuevo cliente")
+	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class) })
 	@PostMapping("/crearCliente")
-	public ResponseEntity guardar(@RequestBody Cliente cliente) {
+	public ResponseEntity crearCliente(@RequestBody Cliente cliente) {
 
 		return this.clienteService.saveCliente(cliente);
 
@@ -100,9 +104,10 @@ public class ClienteController {
 	 * @return se retorna un json con un mensaje donde se valida si el Cliente fue
 	 *         editado o por el contrario no se pudo editar
 	 */
-	// http://localhost:8080/1 (PUT)
-	@PutMapping("/{id}")
-	public ResponseEntity<?> update(@RequestBody Cliente clientedetalle, @PathVariable(value = "id") Integer id) {
+	@ApiOperation(value = "actualizarCliente", notes = "Servicio para actualizar un cliente")
+	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class) })
+	@PutMapping("actualizarCliente/{id}")
+	public ResponseEntity<?> actualizarCliente(@RequestBody Cliente clientedetalle, @PathVariable(value = "id") Integer id) {
 
 		return this.clienteService.updateCliente(clientedetalle, id);
 
@@ -113,8 +118,10 @@ public class ClienteController {
 	 * 
 	 * @param id es el Cliente- registro que deseamos eliminar
 	 */
+	@ApiOperation(value = "eliminarCliente", notes = "Servicio para eliminar un cliente")
+	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class) })
 	@DeleteMapping("/eliminarCliente/{id}")
-	public ResponseEntity<?> delete(@PathVariable(value = "id") Integer id) {
+	public ResponseEntity<?> eliminarCliente(@PathVariable(value = "id") Integer id) {
 
 		return this.clienteService.deleteCliente(id);
 

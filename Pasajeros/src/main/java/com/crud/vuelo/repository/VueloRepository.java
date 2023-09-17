@@ -28,4 +28,5 @@ public interface VueloRepository extends JpaRepository<Vuelo, Integer>{
 	
 	Optional<Vuelo> findByidVuelo(int idVuelo);
 	
+	
 }

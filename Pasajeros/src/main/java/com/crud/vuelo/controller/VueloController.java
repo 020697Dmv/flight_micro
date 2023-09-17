@@ -60,6 +60,12 @@ public class VueloController {
 		return this.vueloService.findAllVuelo();
 	}
 	
-	
-	
+	@ApiOperation(value = "getVueloId", notes = "Servicio para obtener un Vuelos")
+	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class) })
+	@RequestMapping(value = "vueloId/{id}", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<Vuelo> getVueloId(@PathVariable("id") Integer id) {
+
+		return this.vueloService.findVuelo(id);
+
+	}
 }
