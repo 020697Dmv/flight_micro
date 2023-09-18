@@ -49,4 +49,22 @@ public class VueloServiceImpl implements VueloService{
 		
 	}
 
+	@Override
+	public ResponseEntity<?> updateVuelo(Vuelo vueloNew, int idVuelo) {
+		Optional<Vuelo> vuelo = vueloRepository.findById(idVuelo);
+
+		if (!vuelo.isPresent()) {
+			System.out.println("editar");
+			return ResponseEntity.notFound().build();
+		}
+
+		vuelo.get().setCapacidad(vueloNew.getCapacidad());
+		vuelo.get().setFecha(vueloNew.getFecha());
+		vuelo.get().setHora(vueloNew.getHora());
+
+		vueloRepository.save(vuelo.get());
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(vueloRepository.save(vuelo.get()));
+	}
+
 }

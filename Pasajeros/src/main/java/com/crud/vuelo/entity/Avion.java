@@ -8,12 +8,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 /**
  * Clase Avion
  * 
  * @author Danny Macias Vanegas
  *
  */
+@Data
 @Entity
 @Table(name = "Avion")
 public class Avion {
@@ -43,42 +46,6 @@ public class Avion {
 	@ManyToOne
 	@JoinColumn(name="EmpresaFK")
 	private Empresa empresa;
-
-	/**
-	* Setters y getters
-	*/
-	public int getIdAvion() {
-		return idAvion;
-	}
-
-	public void setIdAvion(int idAvion) {
-		this.idAvion = idAvion;
-	}
-
-	public String getModelo() {
-		return modelo;
-	}
-
-	public void setModelo(String modelo) {
-		this.modelo = modelo;
-	}
-
-	public int getCapacidad() {
-		return capacidad;
-	}
-
-	public void setCapacidad(int capacidad) {
-		this.capacidad = capacidad;
-	}
-
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
-
 	
 	
 }

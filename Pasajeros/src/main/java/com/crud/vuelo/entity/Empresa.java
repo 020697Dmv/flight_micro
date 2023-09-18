@@ -7,12 +7,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 /**
  * Clase Empresa
  * 
  * @author Danny Macias Vanegas
  *
  */
+@Data
 @Entity
 @Table(name = "Empresa")
 public class Empresa {

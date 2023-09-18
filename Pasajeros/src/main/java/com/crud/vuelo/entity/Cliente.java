@@ -9,12 +9,15 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import lombok.Data;
+
 /**
  * Clase Cliente
  * 
  * @author Danny Macias Vanegas
  *
  */
+@Data
 @Entity
 @Table(name = "Cliente")
 public class Cliente {
@@ -42,13 +45,6 @@ public class Cliente {
 	*/
 	private String email;
 
-	public Cliente() {
-		
-	}
-	
-	/**
-	* Constructor de la clase	 
-	*/
 	public Cliente(int id, String nombre, String telefono, String email) {
 		super();
 		this.id = id;
@@ -57,39 +53,11 @@ public class Cliente {
 		this.email = email;
 	}
 
-	/**
-	* Setters y getters
-	*/
-	public int getId() {
-		return id;
+	public Cliente() {
+		super();
 	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	
+	
+	
 
 }

@@ -8,12 +8,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 /**
  * Clase Tiquetes
  * 
  * @author Danny Macias Vanegas
  *
  */
+@Data
 @Entity
 @Table(name = "Tiquetes")
 public class Tiquetes {
@@ -59,61 +62,6 @@ public class Tiquetes {
 	@JoinColumn(name="clienteFK")
 	private Cliente cliente;
 
-	public int getIdVuelo() {
-		return idVuelo;
-	}
-
-	public void setIdVuelo(int idVuelo) {
-		this.idVuelo = idVuelo;
-	}
-
-	public String getValor() {
-		return valor;
-	}
-
-	public void setValor(String valor) {
-		this.valor = valor;
-	}
-
-	public String getSilla() {
-		return silla;
-	}
-
-	public void setSilla(String silla) {
-		this.silla = silla;
-	}
-
-	public String getClase() {
-		return clase;
-	}
-
-	public void setClase(String clase) {
-		this.clase = clase;
-	}
-
-	public int getEquipaje() {
-		return equipaje;
-	}
-
-	public void setEquipaje(int equipaje) {
-		this.equipaje = equipaje;
-	}
-
-	public Vuelo getVuelo() {
-		return vuelo;
-	}
-
-	public void setVuelo(Vuelo vuelo) {
-		this.vuelo = vuelo;
-	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
 	
 	
 }

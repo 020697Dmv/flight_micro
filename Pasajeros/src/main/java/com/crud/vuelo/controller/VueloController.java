@@ -34,6 +34,7 @@ import io.swagger.annotations.ApiResponses;
  *
  */
 @RestController
+@RequestMapping("/api/v1")
 public class VueloController {
 	
 	/**
@@ -66,6 +67,15 @@ public class VueloController {
 	public ResponseEntity<Vuelo> getVueloId(@PathVariable("id") Integer id) {
 
 		return this.vueloService.findVuelo(id);
+
+	}
+	
+	@ApiOperation(value = "actualizarVuelo", notes = "Servicio para actualizar un vuelo")
+	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class) })
+	@PutMapping("actualizarVuelo/{id}")
+	public ResponseEntity<?> actualizarVuelo(@RequestBody Vuelo vueloDetalle, @PathVariable(value = "id") Integer id) {
+
+		return this.vueloService.updateVuelo(vueloDetalle, id);
 
 	}
 }

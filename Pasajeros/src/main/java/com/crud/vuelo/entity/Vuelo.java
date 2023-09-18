@@ -9,12 +9,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 /**
  * Clase Vuelo
  * 
  * @author Danny Macias Vanegas
  *
  */
+@Data
 @Entity
 @Table(name = "Vuelo")
 public class Vuelo {
@@ -55,58 +58,6 @@ public class Vuelo {
 	*/
 	@ManyToOne
 	@JoinColumn(name="AeropuertoFK")
-	private Aeropuerto aeropuerto;
-
-	/**
-	* Setters y getters
-	*/
-	public int getIdVuelo() {
-		return idVuelo;
-	}
-
-	public void setIdVuelo(int idVuelo) {
-		this.idVuelo = idVuelo;
-	}
-
-	public String getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
-
-	public int getCapacidad() {
-		return capacidad;
-	}
-
-	public void setCapacidad(int capacidad) {
-		this.capacidad = capacidad;
-	}
-
-	public String getHora() {
-		return hora;
-	}
-
-	public void setHora(String hora) {
-		this.hora = hora;
-	}
-
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
-
-	public Aeropuerto getAeropuerto() {
-		return aeropuerto;
-	}
-
-	public void setAeropuerto(Aeropuerto aeropuerto) {
-		this.aeropuerto = aeropuerto;
-	}
-
+	private Aeropuerto aeropuerto;	
 
 }

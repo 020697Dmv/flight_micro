@@ -18,4 +18,7 @@ public interface VueloService {
 
 	public ResponseEntity<Vuelo> findVuelo(int id);
 
+	public ResponseEntity<?> updateVuelo(Vuelo vueloNew, int idVuelo);
+
+	
 }

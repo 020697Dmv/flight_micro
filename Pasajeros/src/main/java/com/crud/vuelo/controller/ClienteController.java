@@ -34,6 +34,7 @@ import io.swagger.annotations.ApiResponses;
  *
  */
 @RestController
+@RequestMapping("/api/v1")
 public class ClienteController {
 
 	/**
