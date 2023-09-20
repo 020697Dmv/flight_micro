@@ -15,9 +15,15 @@
 	<name>Pasajeros</name>
 	<description>Ejercicio Semana 2</description>
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version> <!-- Puedes usar una versión más reciente si lo deseas -->
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -50,8 +56,7 @@
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-test</artifactId>
-		    <scope>test</scope>
-		    <version>2.5.0</version>
+			<scope>test</scope>				  
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -70,15 +75,22 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-junit-jupiter</artifactId>
-			<scope>test</scope>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-all</artifactId>
+		    <version>2.0.2-beta</version>
+		    <scope>test</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter -->
 		<dependency>
 		    <groupId>io.springfox</groupId>
 		    <artifactId>springfox-boot-starter</artifactId>
 		    <version>3.0.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>3.0.1</version>
+		    <scope>provided</scope>
 		</dependency>
 	</dependencies>
 

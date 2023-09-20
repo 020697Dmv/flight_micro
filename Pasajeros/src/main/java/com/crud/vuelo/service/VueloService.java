@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
+import com.crud.vuelo.entity.Cliente;
 import com.crud.vuelo.entity.Vuelo;
 
 /**
@@ -17,8 +18,12 @@ public interface VueloService {
 	public List<Vuelo> findAllVuelo();
 
 	public ResponseEntity<Vuelo> findVuelo(int id);
+	
+	public ResponseEntity saveVuelo(Vuelo vueloNuevo);
 
 	public ResponseEntity<?> updateVuelo(Vuelo vueloNew, int idVuelo);
+
+	public ResponseEntity<Object> deleteVuelo(int idVuelo);
 
 	
 }

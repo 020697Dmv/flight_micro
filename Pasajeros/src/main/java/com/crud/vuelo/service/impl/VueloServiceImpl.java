@@ -67,4 +67,38 @@ public class VueloServiceImpl implements VueloService{
 		return ResponseEntity.status(HttpStatus.CREATED).body(vueloRepository.save(vuelo.get()));
 	}
 
+	@Override
+	public ResponseEntity<Object> deleteVuelo(int idVuelo) {
+		if (!vueloRepository.findById(idVuelo).isPresent()) {
+			return ResponseEntity.notFound().build();
+
+		}
+
+		vueloRepository.deleteById(idVuelo);
+
+		return ResponseEntity.ok().build();
+	}
+
+	@Override
+	public ResponseEntity saveVuelo(Vuelo vueloNuevo) {
+		List<Vuelo> vuelos = vueloRepository.findAll();
+
+		for (Vuelo vuelo2 : vuelos) {
+
+			if (vuelo2.getIdVuelo() == vueloNuevo.getIdVuelo()) {
+
+				return new ResponseEntity<>("\"mensaje\" : \"El Cliente con identificaciï¿½n  " + vueloNuevo.getIdVuelo()
+						+ " ya tiene una id igual a la ingresada\"", HttpStatus.BAD_REQUEST);
+
+			}
+
+		}
+
+		vueloRepository.save(vueloNuevo);
+
+		return new ResponseEntity<>("Cliente creado", HttpStatus.CREATED);
+	}
+	
+	
+
 }

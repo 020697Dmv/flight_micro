@@ -3,7 +3,6 @@ package com.crud.vuelo.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.annotations.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,7 +52,7 @@ public class ClienteController {
 	 */
 	// http://localhost:8080/vuelo (GET)
 	@ApiOperation(value = "getCliente", notes = "Servicio para obtener todod los clientes")
-	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class) })
+	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Cliente.class) })
 	@RequestMapping(value = "/clientes", method = RequestMethod.GET, produces = "application/json")
 	public List<Cliente> getClientes() {
 
@@ -69,7 +68,7 @@ public class ClienteController {
 	 */
 	// http://localhost:8080/cliente/1 (GET)
 	@ApiOperation(value = "getClienteId", notes = "Servicio para leer los clientes por ID")
-	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class) })
+	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Cliente.class) })
 	@RequestMapping(value = "clienteId/{id}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<Cliente> getClienteId(@PathVariable("id") Integer id) {
 
@@ -88,7 +87,7 @@ public class ClienteController {
 	 */
 	// http://localhost:8080/guardar (POST)
 	@ApiOperation(value = "crearCliente", notes = "Servicio para crear un nuevo cliente")
-	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class) })
+	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Cliente.class) })
 	@PostMapping("/crearCliente")
 	public ResponseEntity crearCliente(@RequestBody Cliente cliente) {
 
@@ -106,7 +105,7 @@ public class ClienteController {
 	 *         editado o por el contrario no se pudo editar
 	 */
 	@ApiOperation(value = "actualizarCliente", notes = "Servicio para actualizar un cliente")
-	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class) })
+	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Cliente.class) })
 	@PutMapping("actualizarCliente/{id}")
 	public ResponseEntity<?> actualizarCliente(@RequestBody Cliente clientedetalle, @PathVariable(value = "id") Integer id) {
 
@@ -120,7 +119,7 @@ public class ClienteController {
 	 * @param id es el Cliente- registro que deseamos eliminar
 	 */
 	@ApiOperation(value = "eliminarCliente", notes = "Servicio para eliminar un cliente")
-	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class) })
+	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Cliente.class) })
 	@DeleteMapping("/eliminarCliente/{id}")
 	public ResponseEntity<?> eliminarCliente(@PathVariable(value = "id") Integer id) {
 

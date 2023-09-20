@@ -78,4 +78,22 @@ public class VueloController {
 		return this.vueloService.updateVuelo(vueloDetalle, id);
 
 	}
+	
+	@ApiOperation(value = "eliminarVuelo", notes = "Servicio para eliminar un vuelo")
+	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class) })
+	@DeleteMapping("/eliminarVuelo/{id}")
+	public ResponseEntity<?> eliminarVuelo(@PathVariable(value = "id") Integer id) {
+
+		return this.vueloService.deleteVuelo(id);
+
+	}
+	
+	@ApiOperation(value = "crearVuelo", notes = "Servicio para crear un nuevo vuelo")
+	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class) })
+	@PostMapping("/crearVuelo")
+	public ResponseEntity crearVuelo(@RequestBody Vuelo vuelo) {
+
+		return this.vueloService.saveVuelo(vuelo);
+
+	}
 }
