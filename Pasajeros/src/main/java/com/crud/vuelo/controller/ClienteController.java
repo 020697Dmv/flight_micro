@@ -88,7 +88,7 @@ public class ClienteController {
 	// http://localhost:8080/guardar (POST)
 	@ApiOperation(value = "crearCliente", notes = "Servicio para crear un nuevo cliente")
 	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Cliente.class) })
-	@PostMapping("/crearCliente")
+	@PostMapping("/crearCliente" )
 	public ResponseEntity crearCliente(@RequestBody Cliente cliente) {
 
 		return this.clienteService.saveCliente(cliente);

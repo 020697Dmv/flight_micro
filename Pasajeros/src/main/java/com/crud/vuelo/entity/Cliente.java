@@ -7,8 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -17,6 +20,7 @@ import lombok.Data;
  * @author Danny Macias Vanegas
  *
  */
+@Builder
 @Data
 @Entity
 @Table(name = "Cliente")
@@ -45,6 +49,7 @@ public class Cliente {
 	*/
 	private String email;
 
+	
 	public Cliente(int id, String nombre, String telefono, String email) {
 		super();
 		this.id = id;
@@ -54,7 +59,6 @@ public class Cliente {
 	}
 
 	public Cliente() {
-		super();
 	}
 	
 	
