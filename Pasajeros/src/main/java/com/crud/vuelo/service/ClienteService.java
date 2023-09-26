@@ -20,7 +20,7 @@ public interface ClienteService {
 
 	public ResponseEntity<Cliente> findCliente(int id);
 
-	public ResponseEntity saveCliente(Cliente clienteNuevo);
+	public Cliente saveCliente(Cliente clienteNuevo);
 
 	public ResponseEntity<Object> deleteCliente(int id);
 

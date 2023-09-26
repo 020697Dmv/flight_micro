@@ -89,7 +89,7 @@ public class ClienteController {
 	@ApiOperation(value = "crearCliente", notes = "Servicio para crear un nuevo cliente")
 	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Cliente.class) })
 	@PostMapping("/crearCliente" )
-	public ResponseEntity crearCliente(@RequestBody Cliente cliente) {
+	public Cliente crearCliente(@RequestBody Cliente cliente) {
 
 		return this.clienteService.saveCliente(cliente);
 

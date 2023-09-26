@@ -48,23 +48,22 @@ public class ClienteServiceImpl implements ClienteService {
 	}
 
 	@Override
-	public ResponseEntity saveCliente(Cliente clienteNuevo) {
+	public Cliente saveCliente(Cliente clienteNuevo) {
 		List<Cliente> clientes = clienteRepository.findAll();
 
 		for (Cliente cliente2 : clientes) {
 
 			if (cliente2.getId() == clienteNuevo.getId()) {
 
-				return new ResponseEntity<>("\"mensaje\" : \"El Cliente con identificaciï¿½n  " + clienteNuevo.getId()
-						+ " ya tiene una id igual a la ingresada\"", HttpStatus.BAD_REQUEST);
+				System.out.println("El empleado con ese email ya existe : " + clienteNuevo.getId());
 
+				
 			}
 
 		}
 
-		clienteRepository.save(clienteNuevo);
+	 return	clienteRepository.save(clienteNuevo);
 
-		return new ResponseEntity<>("Cliente creado", HttpStatus.CREATED);
 
 	}
 

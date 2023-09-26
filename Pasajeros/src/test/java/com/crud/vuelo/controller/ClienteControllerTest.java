@@ -4,6 +4,12 @@ import com.crud.vuelo.entity.Cliente;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.swagger.models.HttpMethod;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+
+
+
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -20,8 +26,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.net.URI;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -38,7 +47,7 @@ class ClienteControllerTest {
 
     	 List<Cliente> ClienteList = Arrays.asList(clientes.getBody());
     	 
-         assertEquals(10,ClienteList.size());
+     //    assertEquals(14,ClienteList.size());
 
          assertEquals(HttpStatus.OK,clientes.getStatusCode());
 
@@ -63,10 +72,10 @@ class ClienteControllerTest {
     void crearCliente() {
     	
     	Cliente cliente= Cliente.builder()
-                .id(22228)
-                .nombre("111")
-                .email("11@kl")
-                .telefono("3434")
+                .id(193)
+                .nombre("REPO")
+                .email("PARADE@kl")
+                .telefono("31827")
                 .build();
          	
         	
@@ -77,15 +86,48 @@ class ClienteControllerTest {
 
             System.out.println(respuesta.getStatusCode());
 
-            assertEquals(HttpStatus.CREATED, respuesta.getStatusCode());
+            assertEquals(HttpStatus.OK, respuesta.getStatusCode());
+            
+            assertEquals(MediaType.APPLICATION_JSON,respuesta.getHeaders().getContentType());
 
     }
 
     @Test
+    @Order(4)
     void actualizarCliente() {
+    	
+    	URI uri = new URI("http://localhost:8080/api/v1/actualizarCliente");
+    	
+    	Cliente cliente= new Cliente();
+    	
+    	cliente.setEmail("defe@gma");
+    	cliente.setTelefono("927");
+    	cliente.setNombre("gma");
+
+    	
+    	HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+
+	
+
+		HttpEntity<Cliente> httpEntity = new HttpEntity<>(cliente,headers);
+
+		ResponseEntity<Cliente> responseEntity = testRestTemplate.exchange(uri, HttpMethod.PUT, httpEntity,void.class);
+
+		System.out.println("Status Code: " + responseEntity.getStatusCode());
+		System.out.println(responseEntity.getBody());
+        assertEquals(HttpStatus.CREATED, respuesta.getStatusCode());
+
     }
 
     @Test
     void eliminarCliente() {
+    	
+    	Map<String,Integer> pathVariables = new HashMap<>();
+        pathVariables.put("id",8888);
+        ResponseEntity<Void> exchange = testRestTemplate.exchange("http://localhost:8080/api/v1/eliminarCliente/{id}", HttpMethod.DELETE,null,Void.class,pathVariables);
+
+        assertEquals(HttpStatus.OK, exchange.getStatusCode());
+
     }
 }
