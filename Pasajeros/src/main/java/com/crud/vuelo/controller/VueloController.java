@@ -36,31 +36,18 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping("/api/v1")
 public class VueloController {
-	
-	/**
-	 * Objetos con los metodos de obtener, listar, eliminar y editar
-	*/
-	
 
 	@Autowired
 	private VueloService vueloService;
-	
-	
-	/**
-	 * Metodo que lista todos los Vuelos 
-	 * @return se retorna un json con todos los Vuelos
-	 */
-	// http://localhost:8080/vuelo (GET)
-	@ApiOperation(value="getVuelos")
-	@ApiResponses({
-		@ApiResponse(code=200, message="Exitoso", response = Vuelo.class)
-	})
+
+	@ApiOperation(value = "getVuelos")
+	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class) })
 	@RequestMapping(value = "/vuelo", method = RequestMethod.GET, produces = "application/json")
 	public List<Vuelo> getVuelos() {
 
 		return this.vueloService.findAllVuelo();
 	}
-	
+
 	@ApiOperation(value = "getVueloId", notes = "Servicio para obtener un Vuelos")
 	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class) })
 	@RequestMapping(value = "vueloId/{id}", method = RequestMethod.GET, produces = "application/json")
@@ -69,7 +56,7 @@ public class VueloController {
 		return this.vueloService.findVuelo(id);
 
 	}
-	
+
 	@ApiOperation(value = "actualizarVuelo", notes = "Servicio para actualizar un vuelo")
 	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class) })
 	@PutMapping("actualizarVuelo/{id}")
@@ -78,7 +65,7 @@ public class VueloController {
 		return this.vueloService.updateVuelo(vueloDetalle, id);
 
 	}
-	
+
 	@ApiOperation(value = "eliminarVuelo", notes = "Servicio para eliminar un vuelo")
 	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class) })
 	@DeleteMapping("/eliminarVuelo/{id}")
@@ -87,7 +74,7 @@ public class VueloController {
 		return this.vueloService.deleteVuelo(id);
 
 	}
-	
+
 	@ApiOperation(value = "crearVuelo", notes = "Servicio para crear un nuevo vuelo")
 	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class) })
 	@PostMapping("/crearVuelo")
