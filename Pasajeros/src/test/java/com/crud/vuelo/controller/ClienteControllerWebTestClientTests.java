@@ -1,168 +1,128 @@
 package com.crud.vuelo.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Test;
 import com.crud.vuelo.entity.Cliente;
-import com.crud.vuelo.service.ClienteService;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import org.apache.catalina.core.ApplicationContext;
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.util.List;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.BDDMockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.hamcrest.Matchers.*;
 
-
-@WebMvcTest
+@AutoConfigureWebTestClient
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ClienteControllerWebTestClientTests {
-	
-	
+
 	@Autowired
-    private MockMvc mockMvc;
+    private WebTestClient webTestClient;
 	
-	@Autowired
-    private ObjectMapper objectMapper;
 	
-	@MockBean
-	private ClienteService clienteService;
 	
+
 	 @Test
-	 void testGuardarCliente() throws Exception {
+	 @Order(1)
+	 void testGuardarEmpleado(){
 	        //given
 		 Cliente cliente = Cliente.builder()
-	                .id(1)
-	                .nombre("Christian")
-	                .telefono("Ramirez")
-	                .email("c1@gmail.com")
+	                .id(366)
+	                .nombre("Adrian")
+	                .telefono("12547")
+	                .email("aab@gmail.com")
 	                .build();
-	        given(clienteService.saveCliente(any(Cliente.class)))
-	                .willAnswer((invocation) -> invocation.getArgument(0));
 
 	        //when
-	        ResultActions response = mockMvc.perform(post("/api/v1/crearCliente")
+	        webTestClient.post().uri("http://localhost:8080/api/v1/crearCliente")
 	                .contentType(MediaType.APPLICATION_JSON)
-	                .content(objectMapper.writeValueAsString(cliente)));
+	                .bodyValue(cliente)
+	                .exchange() 
 
 	        //then
-	        response.andDo(print())
-	                .andExpect(status().isCreated())
-	                .andExpect(jsonPath("$.nombre",is(cliente.getNombre())))
-	                .andExpect(jsonPath("$.telefono",is(cliente.getTelefono())))
-	                .andExpect(jsonPath("$.email",is(cliente.getEmail())));
+	                .expectStatus().isCreated()
+	                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+	                .expectBody()
+	                .jsonPath("$.id").isEqualTo(cliente.getId())
+	                .jsonPath("$.nombre").isEqualTo(cliente.getNombre())
+	                .jsonPath("$.telefono").isEqualTo(cliente.getTelefono())
+	                .jsonPath("$.email").isEqualTo(cliente.getEmail());
 	    }
+	
+	 	@Test
+	    @Order(2)
+	    void testObtenerClientePorId(){
+	        webTestClient.get().uri("http://localhost:8080/api/v1/clienteId/366").exchange()
+	                .expectStatus().isOk()
+	                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+	                .expectBody()
+	                .jsonPath("$.id").isEqualTo(366)
+	                .jsonPath("$.nombre").isEqualTo("Adrian")
+	                .jsonPath("$.telefono").isEqualTo("12547")
+	                .jsonPath("$.email").isEqualTo("aab@gmail.com");;
+	    }
+	 	
+	 	
 	 
-	 @Test
-	 void testListarClientes() throws Exception{
-	        //given
-	        List<Cliente> listaClientes = new ArrayList<>();
-	        listaClientes.add(Cliente.builder().id(98).nombre("Christian").telefono("Ramirez").email("c1@gmail.com").build());
-	        listaClientes.add(Cliente.builder().id(12).nombre("Gabriel").telefono("Ramirez").email("g1@gmail.com").build());
-	        listaClientes.add(Cliente.builder().id(34).nombre("Julen").telefono("Ramirez").email("cj@gmail.com").build());
-	        listaClientes.add(Cliente.builder().id(54).nombre("Biaggio").telefono("Ramirez").email("b1@gmail.com").build());
-	        listaClientes.add(Cliente.builder().id(67).nombre("Adrian").telefono("Ramirez").email("a@gmail.com").build());
-	        given(clienteService.findAllCliente()).willReturn(listaClientes);
+	 	  @Test
+	 	  @Order(3)
+	 	  void testListarClientes(){
+	 	        webTestClient.get().uri("http://localhost:8080/api/v1/clientes").exchange()
+	 	       .expectStatus().isOk()
+               .expectHeader().contentType(MediaType.APPLICATION_JSON)
+               .expectBodyList(Cliente.class)
+               .consumeWith(response -> {
+                   List<Cliente> empleados = response.getResponseBody();
+                   Assertions.assertEquals(2,empleados.size());
+                   Assertions.assertNotNull(empleados);
+               });
+	 	 }
+	 	  
+	 	 @Test
+	     @Order(4)
+	     void testActualizarCliente(){
+	 		Cliente clienteActualizado = Cliente.builder()
+	                 .nombre("Pepe")
+	                 .telefono("1548")
+	                 .email("ckk2@gmail.com")
+	                 .build();
 
-	        //when
-	        ResultActions response = mockMvc.perform(get("/api/clientes"));
+	         webTestClient.put().uri("http://localhost:8080//api/v1/actualizarCliente/366")
+	                 .contentType(MediaType.APPLICATION_JSON)
+	                 .bodyValue(clienteActualizado)
+	                 .exchange() //envia el request
 
-	        //then
-	        response.andExpect(status().isOk())
-	                .andDo(print())
-	                .andExpect(jsonPath("$.size()",is(listaClientes.size())));
-	    }
+	                 //then
+	                 .expectStatus().isOk()
+	                 .expectHeader().contentType(MediaType.APPLICATION_JSON);
+	     }
+	 	 
+	 	 @Test
+	     @Order(5)
+	     void testEliminarEmpleado(){
+	         webTestClient.get().uri("http://localhost:8080/api/v1/clientes").exchange()
+	                 .expectStatus().isOk()
+	                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
+	                 .expectBodyList(Cliente.class)
+	                 .hasSize(2);
 
-	  @Test
-	    void testObtenerClientePorId() throws Exception{
-	        //given
-		  
+	         webTestClient.delete().uri("http://localhost:8080/api/v1/eliminarCliente/366")
+	                 .exchange()
+	                 .expectStatus().isOk();
 
-	        int empleadoId = 8888;
-	        Cliente cliente = Cliente.builder()
-	                .nombre("Haydee")
-	                .telefono("31785")
-	                .email("HAYDE@")
-	                .build();
-	        
-			  ResponseEntity<Cliente> responseEntity = ResponseEntity.ok(cliente);
+	         webTestClient.get().uri("http://localhost:8080/api/v1/clientes").exchange()
+	                 .expectStatus().isOk()
+	                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
+	                 .expectBodyList(Cliente.class)
+	                 .hasSize(1);
 
-	        given(clienteService.findCliente(empleadoId)).willReturn(responseEntity);
-
-	        //when
-	        ResultActions response = mockMvc.perform(get("/api/v1/clienteId/{id}",empleadoId));
-
-	        //then
-	        response.andExpect(status().isOk())
-	                .andDo(print())
-	                .andExpect(jsonPath("$.nombre",is(cliente.getNombre())))
-	                .andExpect(jsonPath("$.telefono",is(cliente.getTelefono())))
-	                .andExpect(jsonPath("$.email",is(cliente.getEmail())));
-	    }
-	  
-	   @Test
-	    void testActualizarCliente() throws Exception{
-	        //given
-	        int clienteId = 8888;
-	        Cliente clienteGuardado = Cliente.builder()
-	                .nombre("Andrea")
-	                .telefono("Lopez")
-	                .email("c1@gmail.com")
-	                .build();
-
-	        Cliente clienteActualizado = Cliente.builder()
-	                .nombre("Raul")
-	                .telefono("Ramirez")
-	                .email("c231@gmail.com")
-	                .build();
-	        
-			  ResponseEntity<Cliente> responseEntity = ResponseEntity.ok(clienteGuardado);
-
-
-	        given(clienteService.findCliente(clienteId)).willReturn((responseEntity));
-	        given(clienteService.updateCliente(clienteActualizado,clienteId))
-	                .willAnswer((invocation) -> invocation.getArgument(0));
-
-	        //when
-	        ResultActions response = mockMvc.perform(put("//api/v1/actualizarCliente/{id}",clienteId)
-	                .contentType(MediaType.APPLICATION_JSON)
-	                .content(objectMapper.writeValueAsString(clienteActualizado)));
-
-	        //then
-	        response.andExpect(status().isOk())
-	                .andDo(print())
-	                .andExpect(jsonPath("$.nombre",is(clienteActualizado.getNombre())))
-	                .andExpect(jsonPath("$.telefono",is(clienteActualizado.getTelefono())))
-	                .andExpect(jsonPath("$.email",is(clienteActualizado.getEmail())));
-	    }
-	   
-	   @Test
-	    void testEliminarEmpleado() throws Exception{
-	        //given
-	        int clienteId = 8888;
-	        willDoNothing().given(clienteService).deleteCliente(clienteId);
-
-	        //when
-	        ResultActions response = mockMvc.perform(delete("//api/v1/eliminarCliente/{id}",clienteId));
-
-	        //then
-	        response.andExpect(status().isOk())
-	                .andDo(print());
-	    }
-
+	         webTestClient.get().uri("http://localhost:8080/api/empleados/1").exchange()
+	                 .expectStatus().is4xxClientError();
+	     }
+}
 	
 
-}

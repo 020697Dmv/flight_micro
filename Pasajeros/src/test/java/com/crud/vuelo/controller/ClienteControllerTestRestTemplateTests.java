@@ -34,7 +34,7 @@ import java.util.Map;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-class ClienteControllerTest {
+class ClienteControllerTestRestTemplateTests {
 
     @Autowired
     private TestRestTemplate testRestTemplate;
