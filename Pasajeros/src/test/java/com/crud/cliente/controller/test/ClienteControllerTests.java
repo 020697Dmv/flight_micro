@@ -1,4 +1,4 @@
-package com.crud.vuelo.controller;
+package com.crud.cliente.controller.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
