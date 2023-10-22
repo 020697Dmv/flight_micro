@@ -1,4 +1,4 @@
-package com.crud.vuelo.controller;
+package com.crud.cliente.controller.test;
 
 import com.crud.vuelo.entity.Cliente;
 
