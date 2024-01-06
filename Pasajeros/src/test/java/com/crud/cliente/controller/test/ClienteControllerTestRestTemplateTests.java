@@ -114,9 +114,9 @@ class ClienteControllerTestRestTemplateTests {
 
 		ResponseEntity<Cliente> responseEntity = testRestTemplate.exchange(uri, HttpMethod.PUT, httpEntity,void.class);
 
-		System.out.println("Status Code: " + responseEntity.getStatusCode());
+		System.out.println("Status Code : " + responseEntity.getStatusCode());
 		System.out.println(responseEntity.getBody());
-        assertEquals(HttpStatus.CREATED, respuesta.getStatusCode());
+        assertEquals(HttpStatus.CREATED,respuesta.getStatusCode());
 
     }
 
