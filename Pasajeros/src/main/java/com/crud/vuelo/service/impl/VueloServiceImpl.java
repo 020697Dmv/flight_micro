@@ -10,8 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.crud.vuelo.entity.Cliente;
-import com.crud.vuelo.entity.Vuelo;
+import com.crud.vuelo.models.Cliente;
+import com.crud.vuelo.models.Vuelo;
 import com.crud.vuelo.repository.VueloRepository;
 import com.crud.vuelo.service.VueloService;
 

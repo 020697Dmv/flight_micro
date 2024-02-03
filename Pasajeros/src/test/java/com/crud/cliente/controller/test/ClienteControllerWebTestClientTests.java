@@ -1,7 +1,5 @@
 package com.crud.cliente.controller.test;
 
-import com.crud.vuelo.entity.Cliente;
-
 import org.apache.catalina.core.ApplicationContext;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
+
+import com.crud.vuelo.models.Cliente;
 
 import java.util.List;
 

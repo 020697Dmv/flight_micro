@@ -18,7 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
-import com.crud.vuelo.entity.Cliente;
+import com.crud.vuelo.models.Cliente;
 import com.crud.vuelo.repository.ClienteRepository;
 import com.crud.vuelo.service.impl.ClienteServiceImpl;
 

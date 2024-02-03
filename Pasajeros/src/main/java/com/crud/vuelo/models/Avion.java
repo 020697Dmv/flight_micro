@@ -1,4 +1,4 @@
-package com.crud.vuelo.entity;
+package com.crud.vuelo.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

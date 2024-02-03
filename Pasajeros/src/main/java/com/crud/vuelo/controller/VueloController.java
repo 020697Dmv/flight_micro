@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.crud.vuelo.entity.Cliente;
-import com.crud.vuelo.entity.Vuelo;
+import com.crud.vuelo.models.Cliente;
+import com.crud.vuelo.models.Vuelo;
 import com.crud.vuelo.repository.ClienteRepository;
 import com.crud.vuelo.repository.VueloRepository;
 import com.crud.vuelo.service.ClienteService;

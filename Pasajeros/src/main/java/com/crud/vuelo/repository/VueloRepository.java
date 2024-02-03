@@ -4,8 +4,6 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.crud.vuelo.entity.Vuelo;
-
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +15,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import com.crud.vuelo.models.Vuelo;
 /**
  * Con esta clase se llaman los servicios del respositorio
  * Objetos con los metodos de obtener, listar, eliminar y editar

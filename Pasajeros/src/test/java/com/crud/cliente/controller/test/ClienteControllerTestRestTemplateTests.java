@@ -1,6 +1,6 @@
 package com.crud.cliente.controller.test;
 
-import com.crud.vuelo.entity.Cliente;
+import com.crud.vuelo.models.Cliente;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

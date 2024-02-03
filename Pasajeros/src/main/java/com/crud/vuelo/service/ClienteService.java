@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 
-import com.crud.vuelo.entity.Cliente;
+import com.crud.vuelo.models.Cliente;
 
 /**
  * En esta clase estan declarados los servicios que pueden ser utilizados

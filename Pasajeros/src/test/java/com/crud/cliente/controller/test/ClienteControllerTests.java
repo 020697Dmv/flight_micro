@@ -11,7 +11,8 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import com.crud.vuelo.entity.Cliente;
+
+import com.crud.vuelo.models.Cliente;
 import com.crud.vuelo.service.ClienteService;
 
 import static org.hamcrest.CoreMatchers.is;
