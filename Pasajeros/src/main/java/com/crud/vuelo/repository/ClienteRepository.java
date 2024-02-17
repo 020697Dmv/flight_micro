@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.crud.vuelo.models.Cliente;
-import com.crud.vuelo.models.Vuelo;
 
 /**
  * Con esta clase se llaman los servicios del respositorio

@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -15,10 +16,21 @@ import lombok.Data;
  * @author Danny Macias Vanegas
  *
  */
+@Builder
 @Data
 @Entity
 @Table(name = "Empresa")
 public class Empresa {
+	
+	public Empresa(int idEmpresa, String nombre, int telefono, String paginaWeb) {
+		super();
+		this.idEmpresa = idEmpresa;
+		this.nombre = nombre;
+		this.telefono = telefono;
+		this.paginaWeb = paginaWeb;
+	}
+
+	
 	
 	/**
 	* Variable idEmpresa la cual es el identificador de la tabla Empresa	 
@@ -76,6 +88,10 @@ public class Empresa {
 
 	public void setPaginaWeb(String paginaWeb) {
 		this.paginaWeb = paginaWeb;
+	}
+
+	public Empresa() {
+		super();
 	}
 	
 	

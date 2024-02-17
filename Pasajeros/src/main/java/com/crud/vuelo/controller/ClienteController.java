@@ -39,10 +39,9 @@ public class ClienteController {
 	@Autowired
 	private ClienteService clienteService;
 	
-	@Autowired
-	private ProductoService productoService;
+	
 
-	@ApiOperation(value = "getCliente", notes = "Servicio para obtener todod los clientes")
+	@ApiOperation(value = "getCliente", notes = "Servicio para obtener todos los clientes")
 	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Cliente.class), 
 	@ApiResponse(code = 204, message = "No hay información"),
 	@ApiResponse(code = 500, message = "Error interno"),

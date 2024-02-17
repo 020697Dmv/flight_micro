@@ -52,7 +52,6 @@ public class ProductoServiceImpl implements ProductoService{
 	        }
 	    }
 
-	    // Si la respuesta es nula o no se pudo obtener correctamente, retornar una lista vacía o lanzar una excepción según la lógica de tu aplicación
 	    return Collections.emptyList();
 	}
 

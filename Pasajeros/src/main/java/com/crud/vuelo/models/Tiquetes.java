@@ -26,7 +26,7 @@ public class Tiquetes {
 	*/
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idVuelo;
+	private int idTiquete;
 	
 	/**
 	* Variable con el valor del Tiquete	 

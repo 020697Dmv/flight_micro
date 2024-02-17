@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.crud.vuelo.models.Cliente;
 import com.crud.vuelo.repository.ClienteRepository;
-import com.crud.vuelo.repository.VueloRepository;
 import com.crud.vuelo.service.ClienteService;
 
 @Service
