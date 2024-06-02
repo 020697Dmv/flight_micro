@@ -20,6 +20,10 @@ import io.swagger.annotations.ApiResponses;
 public class EmpresaController {
 	
 	
+	
+    //@Value("${spring.datasource.username}")
+	public String data;
+	
 	@Autowired
 	private EmpresaRepository empresaRepository;
 	
