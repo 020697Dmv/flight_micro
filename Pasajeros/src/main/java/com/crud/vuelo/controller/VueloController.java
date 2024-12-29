@@ -24,9 +24,9 @@ import com.crud.vuelo.repository.VueloRepository;
 import com.crud.vuelo.service.ClienteService;
 import com.crud.vuelo.service.VueloService;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 
 @RestController
@@ -36,24 +36,24 @@ public class VueloController {
 	@Autowired
 	private VueloService vueloService;
 
-	@ApiOperation(value = "getVuelos")
-	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class),
-		@ApiResponse(code = 204, message = "No hay información"),
-		@ApiResponse(code = 500, message = "Error interno"),
-		@ApiResponse(code = 400, message = "Error de request"),
-		@ApiResponse(code = 401, message = "No autorizado")})
+	@Operation(summary = "getVuelos")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Exitoso"),
+		@ApiResponse(responseCode = "204", description = "No hay información"),
+		@ApiResponse(responseCode = "500", description = "Error interno"),
+		@ApiResponse(responseCode = "400", description = "Error de request"),
+		@ApiResponse(responseCode = "401", description = "No autorizado")})
 	@GetMapping(value = "/vuelos",  produces = "application/json")
 	public List<Vuelo> getVuelos() {
 
 		return this.vueloService.findAllVuelo();
 	}
 
-	@ApiOperation(value = "getVueloId", notes = "Servicio para obtener un Vuelos")
-	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class),
-		@ApiResponse(code = 204, message = "No hay información"),
-		@ApiResponse(code = 500, message = "Error interno"),
-		@ApiResponse(code = 400, message = "Error de request"),
-		@ApiResponse(code = 401, message = "No autorizado")})
+	@Operation(summary = "getVueloId", description = "Servicio para obtener un Vuelos")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Exitoso"),
+		@ApiResponse(responseCode = "204", description = "No hay información"),
+		@ApiResponse(responseCode = "500", description = "Error interno"),
+		@ApiResponse(responseCode = "400", description = "Error de request"),
+		@ApiResponse(responseCode = "401", description = "No autorizado")})
 	@GetMapping(value = "vueloId/{id}", produces = "application/json")
 	public ResponseEntity<Vuelo> getVueloId(@PathVariable("id") Integer id) {
 
@@ -61,12 +61,12 @@ public class VueloController {
 
 	}
 
-	@ApiOperation(value = "actualizarVuelo", notes = "Servicio para actualizar un vuelo")
-	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class),
-		@ApiResponse(code = 204, message = "No hay información"),
-		@ApiResponse(code = 500, message = "Error interno"),
-		@ApiResponse(code = 400, message = "Error de request"),
-		@ApiResponse(code = 401, message = "No autorizado")})
+	@Operation(summary = "actualizarVuelo", description = "Servicio para actualizar un vuelo")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Exitoso"),
+		@ApiResponse(responseCode = "204", description = "No hay información"),
+		@ApiResponse(responseCode = "500", description = "Error interno"),
+		@ApiResponse(responseCode = "400", description = "Error de request"),
+		@ApiResponse(responseCode = "401", description = "No autorizado")})
 	@PutMapping("actualizarVuelo/{id}")
 	public ResponseEntity<?> actualizarVuelo(@RequestBody Vuelo vueloDetalle, @PathVariable(value = "id") Integer id) {
 
@@ -74,12 +74,12 @@ public class VueloController {
 
 	}
 
-	@ApiOperation(value = "eliminarVuelo", notes = "Servicio para eliminar un vuelo")
-	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class),
-		@ApiResponse(code = 204, message = "No hay información"),
-		@ApiResponse(code = 500, message = "Error interno"),
-		@ApiResponse(code = 400, message = "Error de request"),
-		@ApiResponse(code = 401, message = "No autorizado")})
+	@Operation(summary = "eliminarVuelo", description = "Servicio para eliminar un vuelo")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Exitoso"),
+		@ApiResponse(responseCode = "204", description = "No hay información"),
+		@ApiResponse(responseCode = "500", description = "Error interno"),
+		@ApiResponse(responseCode = "400", description = "Error de request"),
+		@ApiResponse(responseCode = "401", description = "No autorizado")})
 	@DeleteMapping("/eliminarVuelo/{id}")
 	public ResponseEntity<?> eliminarVuelo(@PathVariable(value = "id") Integer id) {
 
@@ -87,12 +87,12 @@ public class VueloController {
 
 	}
 
-	@ApiOperation(value = "crearVuelo", notes = "Servicio para crear un nuevo vuelo")
-	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Vuelo.class) ,
-		@ApiResponse(code = 204, message = "No hay información"),
-		@ApiResponse(code = 500, message = "Error interno"),
-		@ApiResponse(code = 400, message = "Error de request"),
-		@ApiResponse(code = 401, message = "No autorizado")})
+	@Operation(summary = "crearVuelo", description = "Servicio para crear un nuevo vuelo")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Exitoso") ,
+		@ApiResponse(responseCode = "204", description = "No hay información"),
+		@ApiResponse(responseCode = "500", description = "Error interno"),
+		@ApiResponse(responseCode = "400", description = "Error de request"),
+		@ApiResponse(responseCode = "401", description = "No autorizado")})
 	@PostMapping("/crearVuelo")
 	public ResponseEntity crearVuelo(@RequestBody Vuelo vuelo) {
 

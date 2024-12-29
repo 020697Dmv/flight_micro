@@ -25,10 +25,9 @@ import com.crud.vuelo.service.ClienteService;
 import com.crud.vuelo.service.ProductoService;
 
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -43,24 +42,26 @@ public class ClienteController {
 	
 	
 
-	@ApiOperation(value = "getCliente", notes = "Servicio para obtener todos los clientes")
-	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Cliente.class), 
-	@ApiResponse(code = 204, message = "No hay información"),
-	@ApiResponse(code = 500, message = "Error interno"),
-	@ApiResponse(code = 400, message = "Error de request"),
-	@ApiResponse(code = 401, message = "No autorizado")})
-	@GetMapping(value ="/clientes", produces = "application/json")
+	@Operation(summary = "Obtener clientes", description = "Servicio para obtener todos los clientes")
+	@ApiResponses({
+	    @ApiResponse(responseCode = "200", description = "Exitoso"),
+	    @ApiResponse(responseCode = "204", description = "No hay información"),
+	    @ApiResponse(responseCode = "500", description = "Error interno"),
+	    @ApiResponse(responseCode = "400", description = "Error de request"),
+	    @ApiResponse(responseCode = "401", description = "No autorizado")
+	})
+	@GetMapping(value = "/clientes", produces = "application/json")
 	public List<Cliente> getClientes() {
 
 		return this.clienteService.findAllCliente();
 	}
 
-	@ApiOperation(value = "getClienteId", notes = "Servicio para leer los clientes por ID")
-	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Cliente.class),
-		@ApiResponse(code = 204, message = "No hay información"),
-		@ApiResponse(code = 500, message = "Error interno"),
-		@ApiResponse(code = 400, message = "Error de request"),
-		@ApiResponse(code = 401, message = "No autorizado")})
+	@Operation(summary = "Obtener clientes por id", description = "Servicio para leer los clientes por ID")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Exitoso"),
+		@ApiResponse(responseCode = "204", description = "No hay información"),
+		@ApiResponse(responseCode = "500", description = "Error interno"),
+		@ApiResponse(responseCode = "400", description = "Error de request"),
+		@ApiResponse(responseCode = "401", description = "No autorizado")})
 	@GetMapping(value = "clienteId/{id}",  produces = "application/json")
 	public ResponseEntity<Cliente> getClienteId(@PathVariable("id") Integer id) {
 
@@ -68,12 +69,12 @@ public class ClienteController {
 
 	}
 
-	@ApiOperation(value = "crearCliente", notes = "Servicio para crear un nuevo cliente")
-	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Cliente.class),
-		@ApiResponse(code = 204, message = "No hay información"),
-		@ApiResponse(code = 500, message = "Error interno"),
-		@ApiResponse(code = 400, message = "Error de request"),
-		@ApiResponse(code = 401, message = "No autorizado")})
+	@Operation(summary = "Crear cliente", description = "Servicio para crear un nuevo cliente")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Exitoso"),
+		@ApiResponse(responseCode = "204", description = "No hay información"),
+		@ApiResponse(responseCode = "500", description = "Error interno"),
+		@ApiResponse(responseCode = "400", description = "Error de request"),
+		@ApiResponse(responseCode = "401", description = "No autorizado")})
 	@PostMapping("/crearCliente")
 	public Cliente crearCliente(@RequestBody Cliente cliente) {
 
@@ -81,12 +82,12 @@ public class ClienteController {
 
 	}
 
-	@ApiOperation(value = "actualizarCliente", notes = "Servicio para actualizar un cliente")
-	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Cliente.class),
-		@ApiResponse(code = 204, message = "No hay información"),
-		@ApiResponse(code = 500, message = "Error interno"),
-		@ApiResponse(code = 400, message = "Error de request"),
-		@ApiResponse(code = 401, message = "No autorizado")})
+	@Operation(summary = "actualizarCliente", description = "Servicio para actualizar un cliente")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Exitoso"),
+		@ApiResponse(responseCode = "204", description = "No hay información"),
+		@ApiResponse(responseCode = "500", description = "Error interno"),
+		@ApiResponse(responseCode = "400", description = "Error de request"),
+		@ApiResponse(responseCode = "401", description = "No autorizado")})
 	@PutMapping("actualizarCliente/{id}")
 	public ResponseEntity<?> actualizarCliente(@RequestBody Cliente clientedetalle,
 			@PathVariable(value = "id") Integer id) {
@@ -95,12 +96,12 @@ public class ClienteController {
 
 	}
 
-	@ApiOperation(value = "eliminarCliente", notes = "Servicio para eliminar un cliente")
-	@ApiResponses({ @ApiResponse(code = 200, message = "Exitoso", response = Cliente.class),
-		@ApiResponse(code = 204, message = "No hay información"),
-		@ApiResponse(code = 500, message = "Error interno"),
-		@ApiResponse(code = 400, message = "Error de request"),
-		@ApiResponse(code = 401, message = "No autorizado")})
+	@Operation(summary = "eliminarCliente", description = "Servicio para eliminar un cliente")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Exitoso"),
+		@ApiResponse(responseCode = "204", description = "No hay información"),
+		@ApiResponse(responseCode = "500", description = "Error interno"),
+		@ApiResponse(responseCode = "400", description = "Error de request"),
+		@ApiResponse(responseCode = "401", description = "No autorizado")})
 	@DeleteMapping("/eliminarCliente/{id}")
 	public ResponseEntity<?> eliminarCliente(@PathVariable(value = "id") Integer id) {
 

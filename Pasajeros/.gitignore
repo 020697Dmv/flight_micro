@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignorar cualquier archivo .properties en la carpeta resources
+src/main/resources/*.properties
