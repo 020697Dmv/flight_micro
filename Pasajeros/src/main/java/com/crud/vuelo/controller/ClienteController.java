@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.crud.vuelo.models.Cliente;
 import com.crud.vuelo.models.Dto.ProductosDto;
 import com.crud.vuelo.repository.ClienteRepository;
+import com.crud.vuelo.service.AuthService;
 import com.crud.vuelo.service.ClienteService;
 import com.crud.vuelo.service.ProductoService;
 
@@ -28,10 +29,12 @@ import com.crud.vuelo.service.ProductoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1")
 @CrossOrigin("*")
+@RequiredArgsConstructor
 public class ClienteController {
 
 	@Autowired

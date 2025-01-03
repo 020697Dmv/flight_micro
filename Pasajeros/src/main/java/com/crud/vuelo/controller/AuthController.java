@@ -7,13 +7,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.crud.vuelo.models.Dto.AuthResponse;
 import com.crud.vuelo.models.Dto.RegisterRequest;
-import com.crud.vuelo.models.Dto.loginDto;
+import com.crud.vuelo.models.Dto.LoginDto;
 import com.crud.vuelo.service.AuthService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -27,30 +30,21 @@ public class AuthController {
     private final AuthService authService;
 
 	
-	@PostMapping(value="/login" , produces = "application/json")
-	public ResponseEntity<AuthResponse> login( loginDto request ) {		
+    @Operation(summary = "Login", description = "Servicio obtener autentificacion")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Exitoso"),
+		@ApiResponse(responseCode = "204", description = "No hay información"),
+		@ApiResponse(responseCode = "500", description = "Error interno"),
+		@ApiResponse(responseCode = "400", description = "Error de request"),
+		@ApiResponse(responseCode = "401", description = "No autorizado")})
+	@PostMapping(value="/login", produces = "application/json")
+	public ResponseEntity<AuthResponse> login(@RequestBody LoginDto request ) {		
 		
-		loginDto login= new loginDto();
-		
-		login.setUsername("maira");
-		login.setPassword("123456");
-
-        return ResponseEntity.ok(authService.login(login));
+		return ResponseEntity.ok(authService.login(request));
 	}
 
 	@PostMapping(value="/register" , produces = "application/json")
-	public ResponseEntity<AuthResponse> register( RegisterRequest request2 ) {
+	public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request ) {
 		
-		RegisterRequest request = new RegisterRequest();
-	    request.setUsername("maira");
-	    request.setPassword("123456");
-	    request.setFirstname("mai");
-	    request.setLastname("h v");
-	    request.setCountry("Colombia");
-		 System.out.println("Received RegisterRequest: " + request2);
-		    if (request2 == null) {
-		        System.out.println("The request body is null!");
-		    }
-        return ResponseEntity.ok(authService.register(request));
+	        return ResponseEntity.ok(authService.register(request));
 	}
 }

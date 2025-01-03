@@ -11,7 +11,7 @@ import com.crud.vuelo.models.Role;
 import com.crud.vuelo.models.Usuario;
 import com.crud.vuelo.models.Dto.AuthResponse;
 import com.crud.vuelo.models.Dto.RegisterRequest;
-import com.crud.vuelo.models.Dto.loginDto;
+import com.crud.vuelo.models.Dto.LoginDto;
 import com.crud.vuelo.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
 
-    public AuthResponse login(loginDto request) {
+    public AuthResponse login(LoginDto request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         UserDetails user=userRepository.findByUsername(request.getUsername()).orElseThrow();
         String token=jwtService.getToken(user);
