@@ -12,8 +12,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.crud.vuelo.jwt.JwtAuthenticationFilter;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 import lombok.RequiredArgsConstructor;
 
 @Configuration

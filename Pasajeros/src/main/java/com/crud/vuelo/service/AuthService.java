@@ -1,17 +1,16 @@
 package com.crud.vuelo.service;
 
-import org.apache.catalina.User;
-import org.springframework.stereotype.Service;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.crud.vuelo.models.Role;
 import com.crud.vuelo.models.Usuario;
 import com.crud.vuelo.models.Dto.AuthResponse;
-import com.crud.vuelo.models.Dto.RegisterRequest;
 import com.crud.vuelo.models.Dto.LoginDto;
+import com.crud.vuelo.models.Dto.RegisterRequest;
 import com.crud.vuelo.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;

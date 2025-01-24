@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.crud.vuelo.models.Cliente;
 import com.crud.vuelo.models.Vuelo;
 
 /**
