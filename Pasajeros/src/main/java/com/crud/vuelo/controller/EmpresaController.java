@@ -1,8 +1,10 @@
 package com.crud.vuelo.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -65,17 +67,30 @@ public class EmpresaController {
 	}
 	
 	@Operation(summary = "Crear Empresa", description = "Servicio para crear una nueva Empresa")
-	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Exitoso"),
-		@ApiResponse(responseCode = "204", description = "No hay información"),
-		@ApiResponse(responseCode = "500", description = "Error interno"),
-		@ApiResponse(responseCode = "400", description = "Error de request"),
-		@ApiResponse(responseCode = "401", description = "No autorizado")})
+	@ApiResponses({
+	    @ApiResponse(responseCode = "200", description = "Exitoso"),
+	    @ApiResponse(responseCode = "400", description = "Error de request"),
+	    @ApiResponse(responseCode = "500", description = "Error interno"),
+	    @ApiResponse(responseCode = "401", description = "No autorizado")
+	})
 	@PostMapping("/crearEmpresa")
-	public Empresa crearEmpresa(@RequestBody Empresa empresa) {
-
-		return this.empresaService.saveEmpresa(empresa);
-
+	public ResponseEntity<?> crearEmpresa(@RequestBody Empresa empresa) {
+	    try {
+	        Empresa nuevaEmpresa = this.empresaService.saveEmpresa(empresa);
+	        return ResponseEntity.ok(nuevaEmpresa); // Devuelve 200 OK si todo está bien
+	    } catch (IllegalArgumentException e) {
+	        // Maneja la excepción y devuelve un error con mensaje personalizado
+	        return ResponseEntity
+	            .status(HttpStatus.BAD_REQUEST)
+	            .body(Map.of("error", e.getMessage())); // Mensaje en formato JSON
+	    } catch (Exception e) {
+	        // Para cualquier otra excepción inesperada
+	        return ResponseEntity
+	            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+	            .body(Map.of("error", "Ocurrió un error interno: " + e.getMessage()));
+	    }
 	}
+
 	
 	@Operation(summary = "actualizarEmpresa", description = "Servicio para actualizar una Empresa")
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Exitoso"),

@@ -51,20 +51,16 @@ public class EmpresaServiceImpl implements EmpresaService{
 	@Override
 	public Empresa saveEmpresa(Empresa empresaNueva) {
 		
-		List<Empresa> clientes = empresaRepository.findAll();
+		List<Empresa> empresas = empresaRepository.findAll();
 
-		for (Empresa empresa : clientes) {
+	    boolean exists = empresas.stream()
+	        .anyMatch(empresa -> empresa.getIdEmpresa() == empresaNueva.getIdEmpresa());
 
-			if (empresa.getIdEmpresa() == empresaNueva.getIdEmpresa()) {
+	    if (exists) {
+	        throw new IllegalArgumentException("La empresa con ese ID ya existe: " + empresaNueva.getIdEmpresa());
+	    }
 
-				System.out.println("El empleado con ese email ya existe : " + empresaNueva.getIdEmpresa());
-
-				
-			}
-
-		}
-
-	 return	empresaRepository.save(empresaNueva);
+	    return empresaRepository.save(empresaNueva);
 	}
 
 	@Override

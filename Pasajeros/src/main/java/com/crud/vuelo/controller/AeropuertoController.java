@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.crud.vuelo.models.Cliente;
-import com.crud.vuelo.models.Empresa;
-import com.crud.vuelo.repository.ClienteRepository;
-import com.crud.vuelo.service.ClienteService;
+import com.crud.vuelo.models.Aeropuerto;
+import com.crud.vuelo.service.AeropuertoService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -30,49 +28,49 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/v1")
 @CrossOrigin("*")
 @RequiredArgsConstructor
-public class ClienteController {
+public class AeropuertoController {
 
 	@Autowired
-	private ClienteService clienteService;
+	private AeropuertoService aeropuertoService;
 
-	@Operation(summary = "Obtener clientes", description = "Servicio para obtener todos los clientes")
+	@Operation(summary = "Obtener Aeropuertos", description = "Servicio para obtener todos los Aeropuertos")
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Exitoso"),
 			@ApiResponse(responseCode = "204", description = "No hay información"),
 			@ApiResponse(responseCode = "500", description = "Error interno"),
 			@ApiResponse(responseCode = "400", description = "Error de request"),
 			@ApiResponse(responseCode = "401", description = "No autorizado") })
-	@GetMapping(value = "/clientes", produces = "application/json")
-	public List<Cliente> getClientes() {
+	@GetMapping(value = "/aeropuertos", produces = "application/json")
+	public List<Aeropuerto> getClientes() {
 
-		return this.clienteService.findAllCliente();
-
+		return this.aeropuertoService.findAllAeropuerto();
 	}
 
-	@Operation(summary = "Obtener clientes por id", description = "Servicio para leer los clientes por ID")
+	@Operation(summary = "Obtener Aeropuerto por id", description = "Servicio para obtener los Aeropuertos por ID")
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Exitoso"),
 			@ApiResponse(responseCode = "204", description = "No hay información"),
 			@ApiResponse(responseCode = "500", description = "Error interno"),
 			@ApiResponse(responseCode = "400", description = "Error de request"),
 			@ApiResponse(responseCode = "401", description = "No autorizado") })
-	@GetMapping(value = "clienteId/{id}", produces = "application/json")
-	public ResponseEntity<Cliente> getClienteId(@PathVariable("id") Integer id) {
+	@GetMapping(value = "aeropuertoId/{id}", produces = "application/json")
+	public ResponseEntity<Aeropuerto> getAeropuertoId(@PathVariable("id") Integer id) {
 
-		return this.clienteService.findCliente(id);
+		return this.aeropuertoService.findAeropuerto(id);
 
 	}
-
-	@Operation(summary = "Crear cliente", description = "Servicio para crear un nuevo cliente")
+	
+	
+	@Operation(summary = "Crear Aeropuerto", description = "Servicio para crear un nuevo Aeropuerto")
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Exitoso"),
 			@ApiResponse(responseCode = "204", description = "No hay información"),
 			@ApiResponse(responseCode = "500", description = "Error interno"),
 			@ApiResponse(responseCode = "400", description = "Error de request"),
 			@ApiResponse(responseCode = "401", description = "No autorizado") })
-	@PostMapping("/crearCliente")
-	public ResponseEntity<?> crearCliente(@RequestBody Cliente cliente) {
+	@PostMapping("/crearAeropuerto")
+	public ResponseEntity<?> crearCliente(@RequestBody Aeropuerto aeropuerto) {
 
 		try {
-			Cliente clienteNuevo = this.clienteService.saveCliente(cliente);
-			return ResponseEntity.ok(clienteNuevo);
+			Aeropuerto aeropuertoNuevo = this.aeropuertoService.saveAeropuerto(aeropuerto);
+			return ResponseEntity.ok(aeropuertoNuevo);
 		} catch (IllegalArgumentException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", e.getMessage()));
 		} catch (Exception e) {
@@ -81,31 +79,33 @@ public class ClienteController {
 		}
 
 	}
-
-	@Operation(summary = "actualizarCliente", description = "Servicio para actualizar un cliente")
+	
+	
+	@Operation(summary = "actualizarAeropuerto", description = "Servicio para actualizar un Aeropuerto")
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Exitoso"),
 			@ApiResponse(responseCode = "204", description = "No hay información"),
 			@ApiResponse(responseCode = "500", description = "Error interno"),
 			@ApiResponse(responseCode = "400", description = "Error de request"),
 			@ApiResponse(responseCode = "401", description = "No autorizado") })
-	@PutMapping("actualizarCliente/{id}")
-	public ResponseEntity<?> actualizarCliente(@RequestBody Cliente clientedetalle,
+	@PutMapping("actualizarAeropuerto/{id}")
+	public ResponseEntity<?> actualizarAeropuerto(@RequestBody Aeropuerto aeropuerto,
 			@PathVariable(value = "id") Integer id) {
 
-		return this.clienteService.updateCliente(clientedetalle, id);
+		return this.aeropuertoService.updateAeropuerto(aeropuerto, id);
 
 	}
-
-	@Operation(summary = "eliminarCliente", description = "Servicio para eliminar un cliente")
+	
+	
+	@Operation(summary = "eliminarAeropuerto", description = "Servicio para eliminar un Aeropuerto")
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Exitoso"),
 			@ApiResponse(responseCode = "204", description = "No hay información"),
 			@ApiResponse(responseCode = "500", description = "Error interno"),
 			@ApiResponse(responseCode = "400", description = "Error de request"),
 			@ApiResponse(responseCode = "401", description = "No autorizado") })
-	@DeleteMapping("/eliminarCliente/{id}")
-	public ResponseEntity<?> eliminarCliente(@PathVariable(value = "id") Integer id) {
+	@DeleteMapping("/eliminarAeropuerto/{id}")
+	public ResponseEntity<?> eliminarAeropuerto(@PathVariable(value = "id") Integer id) {
 
-		return this.clienteService.deleteCliente(id);
+		return this.aeropuertoService.deleteAeropuerto(id);
 
 	}
 

@@ -50,16 +50,12 @@ public class ClienteServiceImpl implements ClienteService {
 	public Cliente saveCliente(Cliente clienteNuevo) {
 		List<Cliente> clientes = clienteRepository.findAll();
 
-		for (Cliente cliente2 : clientes) {
-
-			if (cliente2.getId() == clienteNuevo.getId()) {
-
-				System.out.println("El empleado con ese email ya existe : " + clienteNuevo.getId());
-
-				
-			}
-
-		}
+		boolean exists = clientes.stream()
+		        .anyMatch(cliente -> cliente.getId() == clienteNuevo.getId());
+		
+		if (exists) {
+	        throw new IllegalArgumentException("El Cliente con esa ID ya existe: " + clienteNuevo.getId());
+	    }
 
 	 return	clienteRepository.save(clienteNuevo);
 
