@@ -22,10 +22,9 @@ public class Aeropuerto {
 	
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idAeropuerto;
 	
-		@Column(length = 50)
+	@Column(length = 50)
 	private String nombre;
 
 	

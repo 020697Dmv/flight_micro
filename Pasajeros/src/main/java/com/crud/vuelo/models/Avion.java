@@ -19,23 +19,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table(name = "Avion")
 public class Avion {
-	
-	
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idAvion;
 
-	
 	private String modelo;
-	
-	
+
 	private int capacidad;
-	
-	
+
 	@ManyToOne
-	@JoinColumn(name="EmpresaFK")
+	@JoinColumn(name = "EmpresaFK")
 	private Empresa empresa;
-	
-	
+
 }

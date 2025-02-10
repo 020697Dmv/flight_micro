@@ -95,7 +95,7 @@ public class VueloServiceImpl implements VueloService{
 
 		vueloRepository.save(vueloNuevo);
 
-		return new ResponseEntity<>("Cliente creado", HttpStatus.CREATED);
+		return new ResponseEntity<>("Vuelo creado", HttpStatus.CREATED);
 	}
 	
 	
