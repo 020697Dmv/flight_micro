@@ -2,11 +2,13 @@ package com.crud.vuelo.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.crud.vuelo.models.Usuario;
 import com.crud.vuelo.models.Dto.AuthResponse;
 import com.crud.vuelo.models.Dto.LoginDto;
 import com.crud.vuelo.models.Dto.RegisterRequest;
@@ -20,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class AuthController {
 	
@@ -44,5 +46,13 @@ public class AuthController {
 	public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request ) {
 		
 	        return ResponseEntity.ok(authService.register(request));
+	}
+	
+	
+	@PostMapping(value="/obtenerUsuario", produces = "application/json")
+	public ResponseEntity<ResponseEntity<Usuario>> obtenerUsuario(@RequestBody LoginDto request ) {
+			
+		
+	        return ResponseEntity.ok(authService.user(request));
 	}
 }

@@ -31,7 +31,9 @@ public class ProductoServiceImpl implements ProductoService{
 	
 	private ObjectMapper objectMapper= new ObjectMapper();
 	
-	public ProductoServiceImpl() {this.httpHeaders.setContentType(MediaType.APPLICATION_JSON);}
+	public ProductoServiceImpl() {
+		this.httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+		}
 	
 	
 	@Override

@@ -18,37 +18,24 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-	
-	
-			private final JwtAuthenticationFilter jwtAuthenticationFilter;
-		    private final AuthenticationProvider authProvider;
-	
-		@Bean
-	    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
-	    {
-			return http
-		            .csrf(csrf -> csrf.disable())
-		            .headers(httpSecurityHeadersConfigurer -> {
-		                httpSecurityHeadersConfigurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable);
-		             })
-		            .authorizeHttpRequests(authRequest -> authRequest
-		                .requestMatchers(
-		                    "/auth/**", 
-		                    "/v3/api-docs/**", 
-		                    "/swagger-ui/**", 
-		                    "/swagger-ui.html" ,
-		                    "/h2-console/**",
-		                    "/custom-path/**"
-		                    ).permitAll()
-		                .anyRequest().authenticated() // Requiere autenticación para cualquier otra solicitud
-		            )
-		            .sessionManagement(sessionManager -> sessionManager
-		                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		            )
-		            .authenticationProvider(authProvider)
-		            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-		            .build();	            
-	            
-	    }
+
+	private final JwtAuthenticationFilter jwtAuthenticationFilter;
+	private final AuthenticationProvider authProvider;
+
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	    return http.csrf(csrf -> csrf.disable())
+	        .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
+	        .authorizeHttpRequests(authRequest -> authRequest
+	            .requestMatchers("/auth/**", "/api/v1/**", "/v3/api-docs/**", "/swagger-ui/**", "/h2-console/**")
+	            .permitAll()
+	            .anyRequest().authenticated() // Todo lo demás requiere autenticación
+	        )
+	        .sessionManagement(sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+	        .authenticationProvider(authProvider)
+	        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+	        .build();
+	}
+
 
 }

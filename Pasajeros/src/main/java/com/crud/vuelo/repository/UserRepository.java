@@ -11,5 +11,7 @@ import com.crud.vuelo.models.Usuario;
 public interface UserRepository extends JpaRepository<Usuario, Integer>{
 	
     Optional<Usuario> findByUsername(String username); 
+    
+
 
 }

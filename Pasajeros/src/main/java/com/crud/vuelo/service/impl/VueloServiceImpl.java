@@ -27,7 +27,8 @@ public class VueloServiceImpl implements VueloService{
 
 		Optional<Vuelo> findCliente= this.vueloRepository.findByidVuelo(148);
 		
-		System.out.println(findCliente);
+		Optional<Integer> findAeropuerto= this.vueloRepository.findByCapacidad("1478");
+		
 		return this.vueloRepository.findAll();
 	}
 
