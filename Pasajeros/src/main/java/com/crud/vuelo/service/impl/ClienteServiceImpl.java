@@ -88,8 +88,8 @@ public class ClienteServiceImpl implements ClienteService {
 		cliente.get().setTelefono(ClienteNew.getTelefono());
 
 		clienteRepository.save(cliente.get());
+		return ResponseEntity.status(HttpStatus.CREATED).body(cliente.get());
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(clienteRepository.save(cliente.get()));
 	}
 	
 	

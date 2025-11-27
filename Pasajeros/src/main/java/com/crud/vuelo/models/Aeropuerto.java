@@ -22,6 +22,7 @@ public class Aeropuerto {
 	
 	
 	@Id
+	@Column(name = "idAeropuerto")
 	private int idAeropuerto;
 	
 	@Column(length = 50)

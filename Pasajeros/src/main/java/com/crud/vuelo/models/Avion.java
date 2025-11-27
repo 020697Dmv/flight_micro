@@ -28,7 +28,7 @@ public class Avion {
 	private int capacidad;
 
 	@ManyToOne
-	@JoinColumn(name = "EmpresaFK")
+	@JoinColumn(name = "empresa_fk")
 	private Empresa empresa;
 
 }

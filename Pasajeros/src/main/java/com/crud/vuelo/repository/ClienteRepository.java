@@ -11,5 +11,5 @@ import com.crud.vuelo.models.Cliente;
 public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 
 	Optional<Cliente> findByemail(String email);
-
+	
 }

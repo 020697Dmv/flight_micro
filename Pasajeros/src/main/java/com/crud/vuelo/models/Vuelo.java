@@ -21,29 +21,25 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table(name = "Vuelo")
 public class Vuelo {
-	
-	
-	
-	@Id
-	private int idVuelo;
-	
-	
-	private String fecha;
-	
-	
-	private int capacidad;
-	
-	
-	private String hora;
-	
-	
-	@OneToOne
-	@JoinColumn(name="EmpresaFK")
-	private Empresa empresa;
-	
-	
-	@ManyToOne
-	@JoinColumn(name="AeropuertoFK")
-	private Aeropuerto aeropuerto;	
+
+    @Id
+    private int idVuelo;
+
+    private String fecha;
+
+    private int capacidad;
+
+    private String hora;
+
+    // FK hacia Empresa.idEmpresa
+    @ManyToOne
+    @JoinColumn(name = "EmpresaFK")  // esta columna será INT
+    private Empresa empresa;
+
+    // FK hacia Aeropuerto.idAeropuerto
+    
+    @ManyToOne
+    @JoinColumn(name = "aeropuertoFK", referencedColumnName = "idAeropuerto")
+    private Aeropuerto aeropuerto;
 
 }

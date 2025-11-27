@@ -20,7 +20,6 @@ public class Cliente {
 	
 	
 	@Id
-	//@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
 	

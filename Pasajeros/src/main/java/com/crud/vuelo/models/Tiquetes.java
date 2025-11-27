@@ -19,34 +19,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table(name = "Tiquetes")
 public class Tiquetes {
-	
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idTiquete;
-	
-	
-	private String valor;
-	
-	
-	private String silla;
-	
-	
-	private String clase;
-	
-	
-	private int equipaje;
-	
-	
-	@ManyToOne
-	@JoinColumn(name="vueloFK")
-	private Vuelo vuelo;
 
-	
-	@ManyToOne
-	@JoinColumn(name="clienteFK")
-	private Cliente cliente;
+    @Id
+    private int idTiquete;
 
-	
-	
+    private String valor;
+    private String silla;
+    private String clase;
+    private int equipaje;
+
+    @ManyToOne
+    @JoinColumn(name = "vuelo_fk")  // <-- debe coincidir con SQL
+    private Vuelo vuelo;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_fk") // <-- debe coincidir con SQL
+    private Cliente cliente;
 }
