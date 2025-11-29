@@ -75,7 +75,7 @@ public class ClienteServiceImpl implements ClienteService {
 	}
 
 	@Override
-	public ResponseEntity<?> updateCliente(Cliente ClienteNew, int id) {
+	public ResponseEntity<Cliente> updateCliente(Cliente ClienteNew, int id) {
 		Optional<Cliente> cliente = clienteRepository.findById(id);
 
 		if (!cliente.isPresent()) {

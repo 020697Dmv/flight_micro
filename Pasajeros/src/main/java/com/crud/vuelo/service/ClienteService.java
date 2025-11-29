@@ -18,7 +18,7 @@ public interface ClienteService {
 
 	public ResponseEntity<Object> deleteCliente(int id);
 
-	public ResponseEntity<?> updateCliente(Cliente ClienteNew, int id);
+	public ResponseEntity<Cliente> updateCliente(Cliente ClienteNew, int id);
 	
 	
 	

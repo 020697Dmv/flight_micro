@@ -1,6 +1,8 @@
-package com.crud.cliente.repository.test;
+package com.crud.vuelo.repository.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +19,6 @@ import java.util.List;
 import java.util.Optional;
 
 @DataJpaTest
-@SpringBootTest(classes = Cliente.class)
 public class EmpleadoRepositoryTests {
 
 	
@@ -25,7 +26,6 @@ public class EmpleadoRepositoryTests {
 	@Autowired
 	private ClienteRepository clienteRepository;
 
-	
 	private Cliente cliente;
 	
 	 @BeforeEach
@@ -37,6 +37,16 @@ public class EmpleadoRepositoryTests {
 	                .email("c1@gmail.com")
 	                .build();
 	 }
+	
+	@Test
+	void testFindById() {
+		
+		Optional<Cliente> cliente= clienteRepository.findById(11);
+		
+		assertTrue(cliente.isPresent());
+		assertEquals("Johan",cliente.orElseThrow().getNombre());
+	}
+	
 	 
 	 @DisplayName("Test para guardar un cliente")
 	 @Test
@@ -72,7 +82,7 @@ public class EmpleadoRepositoryTests {
 	        List<Cliente> listaClientes = clienteRepository.findAll();
 
 	        assertThat(listaClientes).isNotNull();
-	        assertThat(listaClientes.size()).isEqualTo(2);
+	        assertThat(listaClientes.size()).isEqualTo(3);
 	    }
 	 
 	 @DisplayName("Test para obtener un cliente por ID")
@@ -109,6 +119,6 @@ public class EmpleadoRepositoryTests {
 	        Optional<Cliente> clienteOptional = clienteRepository.findById(cliente.getId());
 
 	        assertThat(clienteOptional).isEmpty();
-	    }
+	    } 
 
 }

@@ -89,7 +89,7 @@ public class ClienteController {
 			@ApiResponse(responseCode = "400", description = "Error de request"),
 			@ApiResponse(responseCode = "401", description = "No autorizado") })
 	@PutMapping("actualizarCliente/{id}")
-	public ResponseEntity<?> actualizarCliente(@RequestBody Cliente clientedetalle,
+	public ResponseEntity<Cliente> actualizarCliente(@RequestBody Cliente clientedetalle,
 			@PathVariable(value = "id") Integer id) {
 
 		return this.clienteService.updateCliente(clientedetalle, id);
