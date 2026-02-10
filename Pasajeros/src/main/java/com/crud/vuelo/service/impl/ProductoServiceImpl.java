@@ -29,7 +29,6 @@ public class ProductoServiceImpl implements ProductoService{
 	@Autowired
 	private Mapper mapper;
 	
-	private ObjectMapper objectMapper= new ObjectMapper();
 	
 	public ProductoServiceImpl() {
 		this.httpHeaders.setContentType(MediaType.APPLICATION_JSON);

@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @DataJpaTest
-public class EmpleadoRepositoryTests {
+public class ClienteRepositoryTests {
 
 	
 	
@@ -41,10 +41,10 @@ public class EmpleadoRepositoryTests {
 	@Test
 	void testFindById() {
 		
-		Optional<Cliente> cliente= clienteRepository.findById(11);
+		Optional<Cliente> cliente= clienteRepository.findById(10);
 		
 		assertTrue(cliente.isPresent());
-		assertEquals("Johan",cliente.orElseThrow().getNombre());
+		assertEquals("Danny",cliente.orElseThrow().getNombre());
 	}
 	
 	 

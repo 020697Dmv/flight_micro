@@ -29,7 +29,7 @@ public class SecurityConfig {
 	        .authorizeHttpRequests(authRequest -> authRequest
 	            .requestMatchers("/auth/**", "/api/v1/**", "/v3/api-docs/**", "/swagger-ui/**", "/h2-console/**")
 	            .permitAll()
-	            .anyRequest().authenticated() // Todo lo demás requiere autenticación
+	            .anyRequest().authenticated() 
 	        )
 	        .sessionManagement(sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 	        .authenticationProvider(authProvider)

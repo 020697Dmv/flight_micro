@@ -26,9 +26,7 @@ public class AvionServiceImpl implements AvionService {
 	@Override
 	public List<Avion> findAllAvion() {
 
-		List<Avion> aviones = avionRepository.findAll();
-
-		return aviones;
+		 return avionRepository.findAll();
 	}
 
 	@Override
