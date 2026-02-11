@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.crud.vuelo.models.Dto.ProductosDto;
+import com.crud.vuelo.models.dtos.ProductosDto;
 import com.fasterxml.jackson.databind.JsonNode;
 
 @Component

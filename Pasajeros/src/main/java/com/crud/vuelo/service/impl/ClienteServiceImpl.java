@@ -36,7 +36,7 @@ public class ClienteServiceImpl implements ClienteService {
 		Optional<Cliente> optionalCliente = clienteRepository.findById(idCliente);
 		if (optionalCliente.isPresent()) {
 
-			return new ResponseEntity<Cliente>(optionalCliente.get(), HttpStatus.OK);
+			return new ResponseEntity<>(optionalCliente.get(), HttpStatus.OK);
 
 		} else {
 			LOGGER.info("NO HAY INFORMACION DE UN CLIENTE CON ESTE ID: " + id);
@@ -74,22 +74,20 @@ public class ClienteServiceImpl implements ClienteService {
 	}
 
 	@Override
-	public ResponseEntity<Cliente> updateCliente(Cliente ClienteNew, int id) {
+	public ResponseEntity<Cliente> updateCliente(Cliente clienteUpdate, int id) {
 		Optional<Cliente> cliente = clienteRepository.findById(id);
 
 		if (!cliente.isPresent()) {
-			System.out.println("editar");
 			return ResponseEntity.notFound().build();
 		}
 
-		cliente.get().setEmail(ClienteNew.getEmail());
-		cliente.get().setNombre(ClienteNew.getNombre());
-		cliente.get().setTelefono(ClienteNew.getTelefono());
+		cliente.get().setEmail(clienteUpdate.getEmail());
+		cliente.get().setNombre(clienteUpdate.getNombre());
+		cliente.get().setTelefono(clienteUpdate.getTelefono());
 
 		clienteRepository.save(cliente.get());
 		return ResponseEntity.status(HttpStatus.CREATED).body(cliente.get());
 
-	}
-	
+	}	
 	
 }

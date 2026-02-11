@@ -24,10 +24,6 @@ public class VueloServiceImpl implements VueloService{
 
 	@Override
 	public List<Vuelo> findAllVuelo() {
-
-		Optional<Vuelo> findCliente= this.vueloRepository.findByidVuelo(148);
-		
-		Optional<Integer> findAeropuerto= this.vueloRepository.findByCapacidad("1478");
 		
 		return this.vueloRepository.findAll();
 	}
@@ -39,7 +35,7 @@ public class VueloServiceImpl implements VueloService{
 		Optional<Vuelo> optionalVuelo = vueloRepository.findById(idVuelo);
 		if (optionalVuelo.isPresent()) {
 
-			return new ResponseEntity<Vuelo>(optionalVuelo.get(), HttpStatus.OK);
+			return new ResponseEntity<>(optionalVuelo.get(), HttpStatus.OK);
 
 		} else {
 			LOGGER.info("NO HAY INFORMACION DE UN CLIENTE CON ESTE ID: " + id);

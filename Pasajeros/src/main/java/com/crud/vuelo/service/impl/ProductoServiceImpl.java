@@ -12,11 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.crud.vuelo.models.Dto.ProductosDto;
+import com.crud.vuelo.models.dtos.ProductosDto;
 import com.crud.vuelo.models.mapper.Mapper;
 import com.crud.vuelo.service.ProductoService;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class ProductoServiceImpl implements ProductoService{

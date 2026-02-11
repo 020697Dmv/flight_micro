@@ -1,4 +1,4 @@
-package com.crud.vuelo.models.Dto;
+package com.crud.vuelo.models.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

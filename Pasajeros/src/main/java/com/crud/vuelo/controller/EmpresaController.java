@@ -30,9 +30,7 @@ public class EmpresaController {
 	
 	
 	
-    //@Value("${spring.datasource.username}")
-	public String data;
-	
+   	
 	@Autowired
 	private EmpresaRepository empresaRepository;
 	
@@ -77,14 +75,12 @@ public class EmpresaController {
 	public ResponseEntity<?> crearEmpresa(@RequestBody Empresa empresa) {
 	    try {
 	        Empresa nuevaEmpresa = this.empresaService.saveEmpresa(empresa);
-	        return ResponseEntity.ok(nuevaEmpresa); // Devuelve 200 OK si todo está bien
+	        return ResponseEntity.ok(nuevaEmpresa); 
 	    } catch (IllegalArgumentException e) {
-	        // Maneja la excepción y devuelve un error con mensaje personalizado
 	        return ResponseEntity
 	            .status(HttpStatus.BAD_REQUEST)
-	            .body(Map.of("error", e.getMessage())); // Mensaje en formato JSON
+	            .body(Map.of("error", e.getMessage())); 
 	    } catch (Exception e) {
-	        // Para cualquier otra excepción inesperada
 	        return ResponseEntity
 	            .status(HttpStatus.INTERNAL_SERVER_ERROR)
 	            .body(Map.of("error", "Ocurrió un error interno: " + e.getMessage()));

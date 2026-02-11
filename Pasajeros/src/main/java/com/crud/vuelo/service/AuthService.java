@@ -10,12 +10,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.crud.vuelo.models.Cliente;
 import com.crud.vuelo.models.Role;
 import com.crud.vuelo.models.Usuario;
-import com.crud.vuelo.models.Dto.AuthResponse;
-import com.crud.vuelo.models.Dto.LoginDto;
-import com.crud.vuelo.models.Dto.RegisterRequest;
+import com.crud.vuelo.models.dtos.AuthResponse;
+import com.crud.vuelo.models.dtos.LoginDto;
+import com.crud.vuelo.models.dtos.RegisterRequest;
 import com.crud.vuelo.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -34,7 +33,6 @@ public class AuthService {
 				.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 		UserDetails user = userRepository.findByUsername(request.getUsername()).orElseThrow();
 		String token = jwtService.getToken(user);
-		System.out.println("TOKEN GENERADO" + token);
 		return AuthResponse.builder().token(token).build();
 	}
 

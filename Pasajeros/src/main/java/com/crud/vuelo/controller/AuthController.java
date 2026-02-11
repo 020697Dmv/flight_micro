@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crud.vuelo.models.Usuario;
-import com.crud.vuelo.models.Dto.AuthResponse;
-import com.crud.vuelo.models.Dto.LoginDto;
-import com.crud.vuelo.models.Dto.RegisterRequest;
+import com.crud.vuelo.models.dtos.AuthResponse;
+import com.crud.vuelo.models.dtos.LoginDto;
+import com.crud.vuelo.models.dtos.RegisterRequest;
 import com.crud.vuelo.service.AuthService;
 
 import io.swagger.v3.oas.annotations.Operation;
