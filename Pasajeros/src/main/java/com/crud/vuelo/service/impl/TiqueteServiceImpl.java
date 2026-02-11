@@ -35,7 +35,7 @@ public class TiqueteServiceImpl  implements TiquetesService {
 
 		if (optionalTiquete.isPresent()) {
 
-			return new ResponseEntity<Tiquetes>(optionalTiquete.get(), HttpStatus.OK);
+			return new ResponseEntity<>(optionalTiquete.get(), HttpStatus.OK);
 
 		} else {
 			LOGGER.info("NO HAY INFORMACION DE UN TIQUETE CON ESTE ID: " + id);

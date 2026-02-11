@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.crud.vuelo.models.Dto.ProductosDto;
+import com.crud.vuelo.models.dtos.ProductosDto;
 import com.crud.vuelo.service.ProductoService;
 
 import io.swagger.v3.oas.annotations.Operation;

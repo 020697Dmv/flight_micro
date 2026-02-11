@@ -37,7 +37,7 @@ public class AeropuertoServiceImpl implements AeropuertoService {
 
 		if (optionalAeropuerto.isPresent()) {
 
-			return new ResponseEntity<Aeropuerto>(optionalAeropuerto.get(), HttpStatus.OK);
+			return new ResponseEntity<>(optionalAeropuerto.get(), HttpStatus.OK);
 
 		} else {
 			LOGGER.info("NO HAY INFORMACION DE UN AEROPUERTO CON ESTE ID: " + id);

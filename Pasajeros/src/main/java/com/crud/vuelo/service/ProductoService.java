@@ -4,7 +4,7 @@ package com.crud.vuelo.service;
 import java.io.IOException;
 import java.util.List;
 
-import com.crud.vuelo.models.Dto.ProductosDto;
+import com.crud.vuelo.models.dtos.ProductosDto;
 
 public interface ProductoService {
 

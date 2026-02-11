@@ -12,7 +12,7 @@ public interface AvionService {
 
 	public ResponseEntity<Avion> findAvion(int id);
 
-	public Avion saveAvion(Avion AvionNueva);
+	public Avion saveAvion(Avion guardarAvion);
 
 	public ResponseEntity<Object> deleteAvion(int id);
 

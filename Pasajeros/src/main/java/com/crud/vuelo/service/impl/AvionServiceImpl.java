@@ -36,7 +36,7 @@ public class AvionServiceImpl implements AvionService {
 
 		if (optionalAvion.isPresent()) {
 
-			return new ResponseEntity<Avion>(optionalAvion.get(), HttpStatus.OK);
+			return new ResponseEntity<>(optionalAvion.get(), HttpStatus.OK);
 
 		} else {
 			LOGGER.info("NO HAY INFORMACION DE UN AVION CON ESTE ID: " + id);

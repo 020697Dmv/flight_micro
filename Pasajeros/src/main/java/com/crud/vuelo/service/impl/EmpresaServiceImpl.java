@@ -38,7 +38,7 @@ public class EmpresaServiceImpl implements EmpresaService{
 		Optional<Empresa> optionalEmpresa = empresaRepository.findById(idEmpresa);
 		if (optionalEmpresa.isPresent()) {
 
-			return new ResponseEntity<Empresa>(optionalEmpresa.get(), HttpStatus.OK);
+			return new ResponseEntity<>(optionalEmpresa.get(), HttpStatus.OK);
 
 		} else {
 			LOGGER.info("NO HAY INFORMACION DE UNA EMPRESA CON ESTE ID: " + id);
@@ -81,7 +81,6 @@ public class EmpresaServiceImpl implements EmpresaService{
 		Optional<Empresa> empresa = empresaRepository.findById(id);
 
 		if (!empresa.isPresent()) {
-			System.out.println("editar");
 			return ResponseEntity.notFound().build();
 		}
 

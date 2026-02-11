@@ -1,4 +1,4 @@
-package com.crud.vuelo.models.Dto;
+package com.crud.vuelo.models.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginDto {
-	
-    private String password;
+public class RegisterRequest {
 	private String username;
-
+    private String password;
+    private String firstname;
+    private String lastname;
+    private String country; 
 }
