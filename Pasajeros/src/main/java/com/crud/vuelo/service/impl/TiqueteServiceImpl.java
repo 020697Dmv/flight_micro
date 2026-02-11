@@ -26,9 +26,7 @@ public class TiqueteServiceImpl  implements TiquetesService {
 	@Override
 	public List<Tiquetes> findAllTiquete() {
 		
-		List<Tiquetes> tiquetes = tiquetesRepository.findAll();
-
-		return tiquetes;
+		return tiquetesRepository.findAll();
 	}
 
 	@Override

@@ -27,8 +27,7 @@ public class EmpresaServiceImpl implements EmpresaService{
 	@Override
 	public List<Empresa> findAllEmpresas() {
 		
-		List<Empresa> empresas = empresaRepository.findAll();
-		return empresas;
+		 return empresaRepository.findAll();
 	}
 
 	@Override

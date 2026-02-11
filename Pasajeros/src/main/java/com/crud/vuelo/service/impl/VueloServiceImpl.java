@@ -54,7 +54,6 @@ public class VueloServiceImpl implements VueloService{
 		Optional<Vuelo> vuelo = vueloRepository.findById(idVuelo);
 
 		if (!vuelo.isPresent()) {
-			System.out.println("editar");
 			return ResponseEntity.notFound().build();
 		}
 

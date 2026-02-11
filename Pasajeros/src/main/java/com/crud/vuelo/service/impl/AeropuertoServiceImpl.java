@@ -27,9 +27,7 @@ public class AeropuertoServiceImpl implements AeropuertoService {
 	@Override
 	public List<Aeropuerto> findAllAeropuerto() {
 
-		List<Aeropuerto> aeropuertos = aeropuertoRepository.findAll();
-
-		return aeropuertos;
+		 return aeropuertoRepository.findAll();
 	}
 
 	@Override
