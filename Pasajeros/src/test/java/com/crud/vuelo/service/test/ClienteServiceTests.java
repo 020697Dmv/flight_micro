@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.crud.vuelo.models.Cliente;
 import com.crud.vuelo.repository.ClienteRepository;
+import com.crud.vuelo.service.impl.ClienteCacheService;
 import com.crud.vuelo.service.impl.ClienteServiceImpl;
 
 import java.util.Collections;
@@ -31,6 +32,9 @@ public class ClienteServiceTests {
 
 	@Mock
 	private ClienteRepository clienteRepository;
+
+	@Mock
+	private ClienteCacheService clienteCacheService;
 
 	@InjectMocks
 	private ClienteServiceImpl clienteServiceImpl;
@@ -64,6 +68,7 @@ public class ClienteServiceTests {
 
 		verify(clienteRepository, times(1)).findAll();
 		verify(clienteRepository, times(1)).save(nuevo);
+		verify(clienteCacheService, times(1)).put(nuevo);
 	}
 
 	@DisplayName("Test para listar a los clientes")
@@ -84,7 +89,7 @@ public class ClienteServiceTests {
 
 		// Arrange
 		cliente.setId(10);
-		given(clienteRepository.findById(10)).willReturn(Optional.of(cliente));
+		given(clienteCacheService.findById(10)).willReturn(cliente);
 
 		// Act
 		ResponseEntity<Cliente> respuesta = clienteServiceImpl.findCliente(10);
@@ -95,7 +100,7 @@ public class ClienteServiceTests {
 		assertThat(respuesta.getBody()).isNotNull();
 		assertThat(respuesta.getBody().getId()).isEqualTo(10);
 
-		verify(clienteRepository, times(1)).findById(10);
+		verify(clienteCacheService, times(1)).findById(10);
 	}
 
 	@Test
@@ -103,7 +108,7 @@ public class ClienteServiceTests {
 	void testObtenerClientePorIdNoExiste() {
 
 		// Arrange
-		given(clienteRepository.findById(99)).willReturn(Optional.empty());
+		given(clienteCacheService.findById(99)).willReturn(null);
 
 		// Act
 		ResponseEntity<Cliente> respuesta = clienteServiceImpl.findCliente(99);
@@ -113,7 +118,7 @@ public class ClienteServiceTests {
 		assertThat(respuesta.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
 		assertThat(respuesta.getBody()).isNull(); // 204 no tiene body
 
-		verify(clienteRepository, times(1)).findById(99);
+		verify(clienteCacheService, times(1)).findById(99);
 	}
 
 	@DisplayName("Test para actualizar un Cliente")
@@ -147,6 +152,7 @@ public class ClienteServiceTests {
 
 		// Opcional: validar que save se haya llamado
 		verify(clienteRepository, times(1)).save(any(Cliente.class));
+		verify(clienteCacheService, times(1)).put(cliente);
 	}
 
 	@DisplayName("Test para eliminar un cliente exitosamente")
@@ -168,6 +174,7 @@ public class ClienteServiceTests {
 		// Assert
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		verify(clienteRepository, times(1)).deleteById(clienteId);
+		verify(clienteCacheService, times(1)).evict(clienteId);
 	}
 
 	@DisplayName("Test para eliminar cliente que no existe")
@@ -188,6 +195,7 @@ public class ClienteServiceTests {
 
 		// deleteById NO debe ejecutarse
 		verify(clienteRepository, never()).deleteById(anyInt());
+		verify(clienteCacheService, never()).evict(anyInt());
 	}
 
 	@Test

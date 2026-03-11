@@ -41,7 +41,7 @@ public class ClienteController {
 			@ApiResponse(responseCode = "500", description = "Error interno"),
 			@ApiResponse(responseCode = "400", description = "Error de request"),
 			@ApiResponse(responseCode = "401", description = "No autorizado") })
-	@GetMapping(value = "/clientes", produces = "application/json")
+	@GetMapping(value = "/obtenerClientes", produces = "application/json")
 	public List<Cliente> getClientes() {
 
 		return this.clienteService.findAllCliente();

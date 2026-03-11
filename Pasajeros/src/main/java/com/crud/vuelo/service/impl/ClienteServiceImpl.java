@@ -19,24 +19,35 @@ public class ClienteServiceImpl implements ClienteService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ClienteServiceImpl.class);
 
+	//private  final CacheManager cacheManager;
+
 	@Autowired
 	private ClienteRepository clienteRepository;
 
-	@Override
-	public List<Cliente> findAllCliente() {
+	@Autowired
+	private ClienteCacheService clienteCacheService;
 
+   // public ClienteServiceImpl(CacheManager cacheManager) {
+   //     this.cacheManager = cacheManager;
+   // }
+
+    @Override
+	public List<Cliente> findAllCliente() {
+		
+		Optional<Cliente> findEmail=clienteRepository.findByemail("DANNYMACIAS@GMAIL.COM");
+		
+		Optional<Cliente> findTelefono=clienteRepository.findByTelefono("DANNYMACIAS@GMAIL.COM");
+
+		
 		return clienteRepository.findAll();
 	}
 
 	@Override
 	public ResponseEntity<Cliente> findCliente(int id) {
-
 		int idCliente = id;
-
-		Optional<Cliente> optionalCliente = clienteRepository.findById(idCliente);
-		if (optionalCliente.isPresent()) {
-
-			return new ResponseEntity<>(optionalCliente.get(), HttpStatus.OK);
+		Cliente cliente = clienteCacheService.findById(idCliente);
+		if (cliente != null) {
+			return new ResponseEntity<>(cliente, HttpStatus.OK);
 
 		} else {
 			LOGGER.info("NO HAY INFORMACION DE UN CLIENTE CON ESTE ID: " + id);
@@ -55,8 +66,9 @@ public class ClienteServiceImpl implements ClienteService {
 		if (exists) {
 	        throw new IllegalArgumentException("El Cliente con esa ID ya existe: " + clienteNuevo.getId());
 	    }
-
-	 return	clienteRepository.save(clienteNuevo);
+		Cliente saved = clienteRepository.save(clienteNuevo);
+		clienteCacheService.put(saved);
+		return saved;
 
 
 	}
@@ -69,6 +81,7 @@ public class ClienteServiceImpl implements ClienteService {
 		}
 
 		clienteRepository.deleteById(id);
+		clienteCacheService.evict(id);
 
 		return ResponseEntity.ok().build();
 	}
@@ -85,8 +98,9 @@ public class ClienteServiceImpl implements ClienteService {
 		cliente.get().setNombre(clienteUpdate.getNombre());
 		cliente.get().setTelefono(clienteUpdate.getTelefono());
 
-		clienteRepository.save(cliente.get());
-		return ResponseEntity.status(HttpStatus.CREATED).body(cliente.get());
+		Cliente saved = clienteRepository.save(cliente.get());
+		clienteCacheService.put(saved);
+		return ResponseEntity.status(HttpStatus.CREATED).body(saved);
 
 	}	
 	
