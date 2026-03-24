@@ -20,7 +20,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.crud.vuelo.models.Cliente;
 import com.crud.vuelo.repository.ClienteRepository;
-import com.crud.vuelo.service.impl.ClienteCacheService;
+import com.crud.vuelo.service.cacheredis.ClienteCacheService;
 import com.crud.vuelo.service.impl.ClienteServiceImpl;
 
 import java.util.Collections;

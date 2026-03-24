@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,13 +14,13 @@ import org.springframework.stereotype.Service;
 import com.crud.vuelo.models.Cliente;
 import com.crud.vuelo.repository.ClienteRepository;
 import com.crud.vuelo.service.ClienteService;
+import com.crud.vuelo.service.cacheredis.ClienteCacheService;
 
 @Service
 public class ClienteServiceImpl implements ClienteService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ClienteServiceImpl.class);
 
-	//private  final CacheManager cacheManager;
 
 	@Autowired
 	private ClienteRepository clienteRepository;
@@ -27,25 +28,15 @@ public class ClienteServiceImpl implements ClienteService {
 	@Autowired
 	private ClienteCacheService clienteCacheService;
 
-   // public ClienteServiceImpl(CacheManager cacheManager) {
-   //     this.cacheManager = cacheManager;
-   // }
-
+ 
     @Override
 	public List<Cliente> findAllCliente() {
-		
-		Optional<Cliente> findEmail=clienteRepository.findByemail("DANNYMACIAS@GMAIL.COM");
-		
-		Optional<Cliente> findTelefono=clienteRepository.findByTelefono("DANNYMACIAS@GMAIL.COM");
-
-		
-		return clienteRepository.findAll();
+		return clienteCacheService.findAll();
 	}
 
 	@Override
-	public ResponseEntity<Cliente> findCliente(int id) {
-		int idCliente = id;
-		Cliente cliente = clienteCacheService.findById(idCliente);
+	public ResponseEntity<Cliente> findCliente(Long id) {
+		Cliente cliente = clienteCacheService.findById(id);
 		if (cliente != null) {
 			return new ResponseEntity<>(cliente, HttpStatus.OK);
 
@@ -58,23 +49,16 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public Cliente saveCliente(Cliente clienteNuevo) {
-		List<Cliente> clientes = clienteRepository.findAll();
-
-		boolean exists = clientes.stream()
-		        .anyMatch(cliente -> cliente.getId() == clienteNuevo.getId());
-		
-		if (exists) {
+		if (clienteNuevo.getId() != null && clienteRepository.existsById(clienteNuevo.getId())) {
 	        throw new IllegalArgumentException("El Cliente con esa ID ya existe: " + clienteNuevo.getId());
 	    }
 		Cliente saved = clienteRepository.save(clienteNuevo);
 		clienteCacheService.put(saved);
 		return saved;
-
-
 	}
 
 	@Override
-	public ResponseEntity<Object> deleteCliente(int id) {
+	public ResponseEntity<Object> deleteCliente(Long id) {
 		if (!clienteRepository.findById(id).isPresent()) {
 			return ResponseEntity.notFound().build();
 
@@ -87,7 +71,7 @@ public class ClienteServiceImpl implements ClienteService {
 	}
 
 	@Override
-	public ResponseEntity<Cliente> updateCliente(Cliente clienteUpdate, int id) {
+	public ResponseEntity<Cliente> updateCliente(Cliente clienteUpdate, Long id) {
 		Optional<Cliente> cliente = clienteRepository.findById(id);
 
 		if (!cliente.isPresent()) {

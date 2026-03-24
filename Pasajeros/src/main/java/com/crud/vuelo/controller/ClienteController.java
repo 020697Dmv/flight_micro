@@ -55,7 +55,7 @@ public class ClienteController {
 			@ApiResponse(responseCode = "400", description = "Error de request"),
 			@ApiResponse(responseCode = "401", description = "No autorizado") })
 	@GetMapping(value = "clienteId/{id}", produces = "application/json")
-	public ResponseEntity<Cliente> getClienteId(@PathVariable("id") Integer id) {
+	public ResponseEntity<Cliente> getClienteId(@PathVariable("id") Long id) {
 
 		return this.clienteService.findCliente(id);
 
@@ -90,7 +90,7 @@ public class ClienteController {
 			@ApiResponse(responseCode = "401", description = "No autorizado") })
 	@PutMapping("actualizarCliente/{id}")
 	public ResponseEntity<Cliente> actualizarCliente(@RequestBody Cliente clientedetalle,
-			@PathVariable(value = "id") Integer id) {
+			@PathVariable(value = "id") Long id) {
 
 		return this.clienteService.updateCliente(clientedetalle, id);
 
@@ -103,7 +103,7 @@ public class ClienteController {
 			@ApiResponse(responseCode = "400", description = "Error de request"),
 			@ApiResponse(responseCode = "401", description = "No autorizado") })
 	@DeleteMapping("/eliminarCliente/{id}")
-	public ResponseEntity<?> eliminarCliente(@PathVariable(value = "id") Integer id) {
+	public ResponseEntity<?> eliminarCliente(@PathVariable(value = "id") Long id) {
 
 		return this.clienteService.deleteCliente(id);
 
