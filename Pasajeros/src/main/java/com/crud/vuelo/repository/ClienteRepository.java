@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.crud.vuelo.models.Cliente;
 
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
+public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 
 	Optional<Cliente> findByemail(String email);
 	

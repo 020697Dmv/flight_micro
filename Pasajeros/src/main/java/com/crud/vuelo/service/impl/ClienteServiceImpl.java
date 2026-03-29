@@ -29,9 +29,9 @@ public class ClienteServiceImpl implements ClienteService {
 	}
 
 	@Override
-	public ResponseEntity<Cliente> findCliente(int id) {
+	public ResponseEntity<Cliente> findCliente(Long id) {
 
-		int idCliente = id;
+		Long idCliente = id;
 
 		Optional<Cliente> optionalCliente = clienteRepository.findById(idCliente);
 		if (optionalCliente.isPresent()) {
@@ -62,7 +62,7 @@ public class ClienteServiceImpl implements ClienteService {
 	}
 
 	@Override
-	public ResponseEntity<Object> deleteCliente(int id) {
+	public ResponseEntity<Object> deleteCliente(Long id) {
 		if (!clienteRepository.findById(id).isPresent()) {
 			return ResponseEntity.notFound().build();
 
@@ -74,7 +74,7 @@ public class ClienteServiceImpl implements ClienteService {
 	}
 
 	@Override
-	public ResponseEntity<Cliente> updateCliente(Cliente clienteUpdate, int id) {
+	public ResponseEntity<Cliente> updateCliente(Cliente clienteUpdate, Long id) {
 		Optional<Cliente> cliente = clienteRepository.findById(id);
 
 		if (!cliente.isPresent()) {
