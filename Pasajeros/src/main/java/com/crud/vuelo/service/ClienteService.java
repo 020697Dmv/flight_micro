@@ -12,13 +12,13 @@ public interface ClienteService {
 	
 	public List<Cliente> findAllCliente();
 
-	public ResponseEntity<Cliente> findCliente(int id);
+	public ResponseEntity<Cliente> findCliente(Long id);
 
 	public Cliente saveCliente(Cliente clienteNuevo);
 
-	public ResponseEntity<Object> deleteCliente(int id);
+	public ResponseEntity<Object> deleteCliente(Long id);
 
-	public ResponseEntity<Cliente> updateCliente(Cliente nuevoCliente, int id);
+	public ResponseEntity<Cliente> updateCliente(Cliente nuevoCliente, Long id);
 	
 	
 	

@@ -20,7 +20,7 @@ public class Cliente {
 	
 	
 	@Id
-	private int id;
+	private Long id;
 	
 	
 	@Column(length = 50)
