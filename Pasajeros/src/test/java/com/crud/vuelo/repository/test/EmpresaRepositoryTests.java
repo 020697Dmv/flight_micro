@@ -13,9 +13,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import com.crud.vuelo.models.Cliente;
-import com.crud.vuelo.models.Empresa;
-import com.crud.vuelo.repository.EmpresaRepository;
+import com.crud.vuelo.before.models.Empresa;
+import com.crud.vuelo.before.repository.EmpresaRepository;
 
 @DataJpaTest
 public class EmpresaRepositoryTests {
